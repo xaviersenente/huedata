@@ -1,0 +1,247 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/space-grotesk';
+
+import '../styles/global.css';
+import Button from '../components/ui/Button.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'HueData — Marketing d\'études pour l\'événementiel & le culturel',
+  description = 'HueData transforme vos données en décisions. Études quantitatives, analyses qualitatives et stratégie data-driven pour les acteurs culturels et événementiels.',
+  image = '/images/og-default.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://huedata.fr');
+
+const navLinks = [
+  { href: '/expertises', label: 'Expertises' },
+  { href: '/references', label: 'Références' },
+  { href: '/a-propos', label: 'À propos' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "HueData",
+        "description": "Expert en marketing d'études pour l'événementiel et le culturel",
+        "url": "https://huedata.fr",
+        "founder": {
+          "@type": "Person",
+          "name": "Stéphane Laurent"
+        },
+        "areaServed": "France",
+        "serviceType": ["Marketing Research", "Data Analysis", "Cultural Events"]
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Grain texture overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header
+      id="site-nav"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <nav class="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 group" aria-label="HueData – Accueil">
+          <span class="font-display font-bold text-2xl text-creme tracking-tight">
+            Hue<span class="text-magenta">Data</span>
+          </span>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="font-body text-sm text-gray-400 hover:text-creme transition-colors duration-200 relative group"
+            >
+              {link.label}
+              <span class="absolute -bottom-0.5 left-0 w-0 h-px bg-magenta transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          ))}
+          <Button href="/contact" size="sm">Discutons</Button>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button
+          id="menu-toggle"
+          class="md:hidden flex flex-col gap-1.5 p-2"
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <span class="menu-bar block w-6 h-0.5 bg-creme transition-all duration-300"></span>
+          <span class="menu-bar block w-6 h-0.5 bg-creme transition-all duration-300"></span>
+          <span class="menu-bar block w-4 h-0.5 bg-creme transition-all duration-300"></span>
+        </button>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden bg-noir-soft border-t border-gray-800 px-6 py-6"
+      >
+        <div class="flex flex-col gap-6">
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="font-display text-xl text-creme hover:text-magenta transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+          <Button href="/contact" size="md" fullWidth class="text-center">Discutons</Button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-noir-soft border-t border-gray-800 py-16 px-6">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <!-- Brand -->
+          <div>
+            <a href="/" class="font-display font-bold text-3xl text-creme">
+              Hue<span class="text-magenta">Data</span>
+            </a>
+            <p class="mt-4 text-gray-400 text-sm leading-relaxed max-w-xs">
+              Marketing d'études pour l'événementiel et le culturel.
+              On transforme vos données en décisions.
+            </p>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-6 inline-flex items-center gap-2 text-sm text-gray-400 hover:text-electric transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+
+          <!-- Navigation -->
+          <div>
+            <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-6">Navigation</h3>
+            <ul class="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <li>
+                  <a href={link.href} class="text-gray-400 hover:text-creme text-sm transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-6">Contact</h3>
+            <div class="flex flex-col gap-3">
+              <a
+                href="mailto:contact@huedata.fr"
+                class="text-gray-400 hover:text-magenta text-sm transition-colors"
+              >
+                contact@huedata.fr
+              </a>
+              <span class="text-gray-400 text-sm">Bourgogne-Franche-Comté</span>
+              <a
+                href="/contact"
+                class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-magenta hover:text-magenta-dark transition-colors"
+              >
+                Décrire votre projet →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-gray-400 text-xs">
+            HueData — Stéphane Laurent
+          </p>
+          <div class="flex gap-6">
+            <a href="/mentions-legales" class="text-gray-400 hover:text-creme text-xs transition-colors">Mentions légales</a>
+            <a href="/politique-de-confidentialite" class="text-gray-400 hover:text-creme text-xs transition-colors">Confidentialité</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Nav scroll behavior + mobile menu -->
+    <script>
+      const nav = document.getElementById('site-nav');
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuBars = document.querySelectorAll('.menu-bar');
+
+      // Scroll behavior
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+          nav?.classList.add('bg-noir/95', 'backdrop-blur-md');
+        } else {
+          nav?.classList.remove('bg-noir/95', 'backdrop-blur-md');
+        }
+      }, { passive: true });
+
+      // Mobile menu toggle
+      let menuOpen = false;
+      menuToggle?.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        menuToggle.setAttribute('aria-expanded', String(menuOpen));
+        mobileMenu?.classList.toggle('hidden', !menuOpen);
+
+        if (menuOpen) {
+          menuBars[0]?.classList.add('rotate-45', 'translate-y-2');
+          menuBars[1]?.classList.add('opacity-0');
+          menuBars[2]?.classList.add('-rotate-45', '-translate-y-2', 'w-6');
+        } else {
+          menuBars[0]?.classList.remove('rotate-45', 'translate-y-2');
+          menuBars[1]?.classList.remove('opacity-0');
+          menuBars[2]?.classList.remove('-rotate-45', '-translate-y-2', 'w-6');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/ui/Button.astro';
+
+export async function getStaticPaths() {
+  const refs = await getCollection('references');
+  return refs.map((ref) => ({
+    params: { slug: ref.slug },
+    props: { ref },
+  }));
+}
+
+const { ref } = Astro.props;
+const { Content } = await render(ref);
+
+const domainLabels: Record<string, string> = {
+  festival: 'Festival',
+  salle: 'Salle & SMAC',
+  musee: 'Musée & Patrimoine',
+  sport: 'Sport',
+  collectivite: 'Collectivité',
+  association: 'Association',
+};
+
+const domainColors: Record<string, string> = {
+  festival: '#E94560',
+  salle: '#3A86FF',
+  musee: '#FFBE0B',
+  sport: '#06D6A0',
+  collectivite: '#3A86FF',
+  association: '#06D6A0',
+};
+
+const color = domainColors[ref.data.domain];
+const label = domainLabels[ref.data.domain];
+---
+
+<Layout
+  title={`${ref.data.title} — HueData`}
+  description={`Étude de cas HueData pour ${ref.data.client} — ${ref.data.location}`}
+>
+  <!-- Hero étude de cas -->
+  <section class="pt-40 pb-20 px-6 bg-noir relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <div class="blur-blob absolute w-[600px] h-[600px]" style={`background: ${color}; top: -250px; left: -150px; opacity: 0.12;`}></div>
+    </div>
+
+    <div class="mx-auto max-w-5xl relative z-10">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-10" aria-label="Fil d'Ariane">
+        <a href="/" class="hover:text-creme transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/references" class="hover:text-creme transition-colors">Références</a>
+        <span>/</span>
+        <span class="text-gray-400">{ref.data.title}</span>
+      </nav>
+
+      <!-- Badge domaine -->
+      <div class="flex items-center gap-3 mb-6">
+        <span
+          class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full"
+          style={`background: ${color}15; color: ${color}; border: 1px solid ${color}30;`}
+        >
+          <span class="w-2 h-2 rounded-full" style={`background: ${color};`}></span>
+          {label}
+        </span>
+        <span class="text-gray-500 text-sm">{ref.data.year}</span>
+      </div>
+
+      <h1 class="font-display font-bold text-creme mb-4" style="font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; letter-spacing: -0.03em;">
+        {ref.data.title}
+      </h1>
+      <p class="font-body text-gray-400 text-xl mb-10">{ref.data.location} · {ref.data.client}</p>
+
+      <!-- Stats clés -->
+      {ref.data.stats && ref.data.stats.length > 0 && (
+        <div class="flex flex-wrap gap-8 pt-8 border-t border-gray-800">
+          {ref.data.stats.map((stat) => (
+            <div>
+              <div class="font-display font-bold text-4xl" style={`color: ${color};`}>{stat.value}</div>
+              <div class="font-body text-gray-400 text-sm mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Contenu -->
+  <section class="py-12 px-6 bg-noir">
+    <div class="mx-auto max-w-5xl grid md:grid-cols-3 gap-12">
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-1 space-y-8">
+        <!-- Services -->
+        {ref.data.services && ref.data.services.length > 0 && (
+          <div class="card-glass rounded-2xl p-8">
+            <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-6">Missions</h3>
+            <ul class="space-y-3">
+              {ref.data.services.map((s: string) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={`background: ${color};`}></span>
+                  <span class="font-body text-gray-400 text-sm">{s}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Témoignage -->
+        {ref.data.testimonial && (
+          <div class="rounded-2xl p-8 border border-gray-800 relative overflow-hidden" style={`background: ${color}08;`}>
+            <div class="absolute top-4 right-4 font-display font-bold text-7xl leading-none select-none pointer-events-none" style={`color: ${color}15;`}>"</div>
+            <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style={`background: ${color};`}></div>
+            <p class="font-body text-gray-300 text-sm italic leading-relaxed mb-6 relative z-10">
+              "{ref.data.testimonial.quote}"
+            </p>
+            <div class="relative z-10">
+              <div class="font-display font-semibold text-creme text-sm">{ref.data.testimonial.author}</div>
+              <div class="font-body text-gray-500 text-xs mt-1">{ref.data.testimonial.role}</div>
+            </div>
+          </div>
+        )}
+
+        <!-- CTA latéral -->
+        <a
+          href="/contact"
+          class="block rounded-2xl p-8 text-center border transition-all duration-300 hover:scale-105"
+          style={`background: ${color}10; border-color: ${color}30;`}
+        >
+          <p class="font-body text-gray-400 text-sm mb-4">Un projet similaire ?</p>
+          <span class="font-display font-bold text-base" style={`color: ${color};`}>Discutons →</span>
+        </a>
+      </aside>
+
+      <!-- Contenu principal -->
+      <article class="md:col-span-2 prose-case">
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  <!-- Navigation entre projets -->
+  <section class="py-16 px-6 bg-noir-soft border-t border-gray-800">
+    <div class="mx-auto max-w-5xl flex items-center justify-between">
+      <Button href="/references" variant="link" arrow={false}>← Toutes les références</Button>
+      <Button href="/contact" size="md" style={`background: ${color};`}>Démarrer un projet</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .prose-case :global(p) {
+    color: rgb(136, 136, 136);
+    font-family: var(--font-body);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.0625rem;
+  }
+  .prose-case :global(h2) {
+    color: var(--color-creme);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose-case :global(h3) {
+    color: var(--color-creme);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  gsap.fromTo('article', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.3 });
+  gsap.fromTo('aside', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: 0.4 });
+</script>

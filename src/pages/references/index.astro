@@ -1,0 +1,135 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/sections/CTA.astro';
+import Card, { domainColors, domainLabels } from '../../components/ui/Card.astro';
+
+const allRefs = await getCollection('references');
+const domains = Object.keys(domainLabels);
+---
+
+<Layout
+  title="Références — HueData"
+  description="Découvrez les projets menés par HueData : festivals, salles de concert, musées, clubs sportifs et collectivités."
+>
+  <!-- Hero -->
+  <section class="pt-40 pb-20 px-6 bg-noir relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <div class="blur-blob absolute w-[500px] h-[500px] bg-mustard" style="top: -200px; left: -100px; opacity: 0.15;"></div>
+    </div>
+    <div class="mx-auto max-w-7xl relative z-10">
+      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-6">
+        <span class="w-6 h-px bg-mustard"></span>
+        Nos projets
+      </span>
+      <h1 class="font-display font-bold text-creme mb-6" style="font-size: clamp(3rem, 7vw, 6rem); line-height: 1.0; letter-spacing: -0.03em;">
+        {allRefs.length} projets,<br />
+        <span class="text-gradient-mustard">autant d'histoires.</span>
+      </h1>
+      <p class="font-body text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Des festivals aux musées, des clubs sportifs aux collectivités : chaque mission est unique, chaque donnée raconte quelque chose.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filtres + Grille -->
+  <section class="py-12 px-6 bg-noir">
+    <div class="mx-auto max-w-7xl">
+
+      <!-- Filtres -->
+      <div class="flex flex-wrap gap-3 mb-12" id="filters">
+        <button
+          class="filter-btn active font-display font-semibold text-sm px-5 py-2.5 rounded-full border transition-all duration-300"
+          data-filter="all"
+          style="background: var(--color-creme); color: var(--color-noir); border-color: var(--color-creme);"
+        >
+          Tous ({allRefs.length})
+        </button>
+        {domains.map((domain) => {
+          const count = allRefs.filter((r) => r.data.domain === domain).length;
+          if (count === 0) return null;
+          return (
+            <button
+              class="filter-btn font-display font-semibold text-sm px-5 py-2.5 rounded-full border border-gray-700 text-gray-400 hover:border-opacity-60 transition-all duration-300"
+              data-filter={domain}
+              style={`--domain-color: ${domainColors[domain]};`}
+            >
+              {domainLabels[domain]} ({count})
+            </button>
+          );
+        })}
+      </div>
+
+      <!-- Grille -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="refs-grid">
+        {allRefs.map((ref) => (
+          <Card entry={ref} variant="grid" headingLevel={2} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+
+  const filterBtns = document.querySelectorAll<HTMLElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.ref-card');
+
+  // Init animation
+  gsap.fromTo(cards,
+    { opacity: 0, y: 30 },
+    { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power3.out', delay: 0.2 }
+  );
+
+  // Filter logic
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+
+      // Update active state
+      filterBtns.forEach((b) => {
+        const color = b.style.getPropertyValue('--domain-color') || '';
+        b.style.background = '';
+        b.style.color = '';
+        b.style.borderColor = '';
+        b.classList.remove('active');
+        b.style.setProperty('color', 'rgb(136,136,136)');
+        b.style.setProperty('border-color', 'rgb(51,51,51)');
+      });
+
+      const domColor = btn.style.getPropertyValue('--domain-color');
+      if (domColor) {
+        btn.style.setProperty('background', domColor);
+        btn.style.setProperty('color', '#0D0D0D');
+        btn.style.setProperty('border-color', domColor);
+      } else {
+        btn.style.setProperty('background', '#F8F6F2');
+        btn.style.setProperty('color', '#0D0D0D');
+        btn.style.setProperty('border-color', '#F8F6F2');
+      }
+      btn.classList.add('active');
+
+      // Filter cards
+      cards.forEach((card) => {
+        const domain = card.dataset.domain ?? '';
+        const visible = filter === 'all' || domain === filter;
+
+        if (visible) {
+          card.style.display = 'block';
+          gsap.to(card, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' });
+        } else {
+          gsap.to(card, {
+            opacity: 0,
+            scale: 0.96,
+            duration: 0.2,
+            ease: 'power2.in',
+            onComplete: () => { card.style.display = 'none'; },
+          });
+        }
+      });
+    });
+  });
+</script>

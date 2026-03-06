@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import Button from '../ui/Button.astro';
+const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
+
+const icons: Record<string, string> = {
+  chart: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  chat: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  target: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  map: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>`,
+};
+---
+
+<section id="expertises-section" class="py-24 md:py-32 px-6 bg-noir-soft">
+  <div class="mx-auto max-w-7xl">
+
+    <!-- Header -->
+    <div class="expertises-header mb-16 max-w-2xl">
+      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
+        <span class="w-6 h-px bg-electric"></span>
+        Ce qu'on fait
+      </span>
+      <h2 class="font-display font-bold text-creme mb-6" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1;">
+        Quatre pôles,<br />
+        <span class="text-gradient-magenta">une obsession.</span>
+      </h2>
+      <p class="font-body text-gray-400 text-lg">
+        Des études rigoureuses, une approche terrain, des recommandations actionnables. Pour que vos données travaillent vraiment pour vous.
+      </p>
+    </div>
+
+    <!-- Grille expertises -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+      {expertises.map((exp, i) => (
+        <a
+          href={`/expertises#${exp.slug}`}
+          class="expertise-card group relative card-glass rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-500 hover:border-opacity-40"
+          style={`--card-color: ${exp.data.color};`}
+        >
+          <!-- Glow on hover -->
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+            style={`background: radial-gradient(ellipse at top left, ${exp.data.color}15, transparent 60%);`}
+          ></div>
+
+          <!-- Numéro -->
+          <span
+            class="absolute top-8 right-8 font-display font-bold text-6xl leading-none select-none"
+            style={`color: ${exp.data.color}20;`}
+          >
+            0{i + 1}
+          </span>
+
+          <!-- Icon -->
+          <div
+            class="relative z-10 w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
+            style={`background: ${exp.data.color}20; color: ${exp.data.color};`}
+            set:html={icons[exp.data.icon] ?? icons.chart}
+          ></div>
+
+          <!-- Content -->
+          <div class="relative z-10">
+            <h3 class="font-display font-semibold text-creme text-xl mb-3 transition-colors duration-300"
+              style={`group-hover color: ${exp.data.color}`}
+            >
+              {exp.data.title}
+            </h3>
+            <p class="font-body text-gray-400 text-sm leading-relaxed">
+              {exp.data.description}
+            </p>
+          </div>
+
+          <!-- Arrow -->
+          <div
+            class="relative z-10 mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3"
+            style={`color: ${exp.data.color};`}
+          >
+            En savoir plus
+            <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center">
+      <Button href="/expertises" variant="outline" size="md" arrow>Toutes nos expertises</Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.fromTo('.expertises-header',
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#expertises-section', start: 'top 75%' },
+    }
+  );
+
+  gsap.fromTo('.expertise-card',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#expertises-section', start: 'top 65%' },
+    }
+  );
+</script>

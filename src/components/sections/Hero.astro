@@ -1,0 +1,120 @@
+---
+// Hero — Proposition A "Hue Dada"
+import Button from '../ui/Button.astro';
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex flex-col justify-center overflow-hidden bg-noir px-6 pt-20"
+>
+  <!-- Blobs couleurs arrière-plan -->
+  <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+    <div
+      class="blur-blob absolute w-[500px] h-[500px] bg-magenta"
+      style="top: -150px; left: -100px; animation: pulse-glow 6s ease-in-out infinite;"
+    ></div>
+    <div
+      class="blur-blob absolute w-[400px] h-[400px] bg-electric"
+      style="top: 30%; right: -80px; animation: pulse-glow 8s ease-in-out infinite 2s;"
+    ></div>
+    <div
+      class="blur-blob absolute w-[350px] h-[350px] bg-mustard"
+      style="bottom: -100px; left: 30%; animation: pulse-glow 7s ease-in-out infinite 4s;"
+    ></div>
+    <!-- Grid overlay -->
+    <div
+      class="absolute inset-0 opacity-5"
+      style="background-image: linear-gradient(rgba(248,246,242,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(248,246,242,0.5) 1px, transparent 1px); background-size: 80px 80px;"
+    ></div>
+  </div>
+
+  <!-- Contenu hero -->
+  <div class="relative z-10 mx-auto max-w-7xl w-full py-24 md:py-32">
+
+    <!-- Tag accrocheur -->
+    <div id="hero-tag" class="flex items-center gap-3 mb-10 opacity-0">
+      <span class="inline-block w-8 h-px bg-magenta"></span>
+      <span class="font-body text-sm text-gray-300 uppercase tracking-widest">
+        Marketing d'études · Événementiel · Culture
+      </span>
+    </div>
+
+    <!-- Titre principal -->
+    <h1 class="font-display font-bold text-creme leading-[0.95] mb-8" style="font-size: clamp(3.5rem, 9vw, 9rem);">
+      <span class="hero-line block overflow-hidden">
+        <span class="hero-word inline-block translate-y-full">Vos données</span>
+      </span>
+      <span class="hero-line block overflow-hidden">
+        <span class="hero-word inline-block translate-y-full">
+          ont des
+          <em
+            class="not-italic"
+            style="background: linear-gradient(135deg, #E94560 0%, #3A86FF 50%, #FFBE0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+          >couleurs.</em>
+        </span>
+      </span>
+    </h1>
+
+    <!-- Sous-titre -->
+    <p
+      id="hero-sub"
+      class="font-body font-light text-xl md:text-2xl text-gray-300 max-w-2xl mb-12 opacity-0 leading-normal"
+    >
+      On les lit, on les raconte, on les transforme en décisions.<br>
+      <span class="text-creme font-bold">+200 projets pilotés</span> pour les festivals, salles et musées.
+    </p>
+
+    <!-- CTA -->
+    <div id="hero-ctas" class="flex flex-wrap items-center gap-4 opacity-0">
+      <Button href="/contact" size="lg">Démarrer un projet</Button>
+      <Button href="/references" variant="outline" size="lg" arrow={false}>Voir les projets</Button>
+    </div>
+
+    <!-- Chiffre flottant décoratif -->
+    <div
+      id="hero-badge"
+      class="absolute right-32 top-1/3 -translate-y-1/2 hidden xl:flex flex-col items-center opacity-0"
+      style="animation: float 8s ease-in-out infinite;"
+    >
+      <div class="card-glass rounded-2xl p-8 text-center">
+        <div class="font-display font-bold text-6xl text-mustard leading-none">+200</div>
+        <div class="font-body text-sm text-gray-300 mt-2">projets pilotés</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div id="hero-scroll" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0">
+    <span class="font-body text-xs text-creme/60 uppercase tracking-widest">Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-white/60 to-transparent"></div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+  // Tag
+  tl.to('#hero-tag', { opacity: 1, y: 0, duration: 0.8 }, 0.2);
+
+  // Lignes de titre
+  tl.to('.hero-word', {
+    y: '0%',
+    duration: 1,
+    stagger: 0.15,
+    ease: 'power4.out',
+  }, 0.4);
+
+  // Sous-titre
+  tl.to('#hero-sub', { opacity: 1, y: 0, duration: 0.8 }, 0.9);
+
+  // CTAs
+  tl.to('#hero-ctas', { opacity: 1, y: 0, duration: 0.8 }, 1.1);
+
+  // Badge
+  tl.to('#hero-badge', { opacity: 1, duration: 1 }, 1.3);
+
+  // Scroll indicator
+  tl.to('#hero-scroll', { opacity: 1, duration: 0.8 }, 1.5);
+</script>

@@ -1,0 +1,53 @@
+---
+// Bandeau défilant logos clients
+const clients = [
+  { name: 'No Logo Festival', domain: 'festival' },
+  { name: 'Les Eurockéennes', domain: 'festival' },
+  { name: 'Le Moloco', domain: 'salle' },
+  { name: 'La Filature de Mulhouse', domain: 'salle' },
+  { name: 'FC Sochaux-Montbéliard', domain: 'sport' },
+  { name: 'Musée des Beaux-Arts', domain: 'musee' },
+  { name: 'Rencontres & Racines', domain: 'festival' },
+  { name: 'FEMA BFC', domain: 'collectivite' },
+  { name: 'La Paille', domain: 'association' },
+  { name: 'Peace and Lobe', domain: 'festival' },
+];
+
+const domainColors: Record<string, string> = {
+  festival: '#E94560',
+  salle: '#3A86FF',
+  musee: '#FFBE0B',
+  sport: '#06D6A0',
+  collectivite: '#3A86FF',
+  association: '#06D6A0',
+};
+
+// Double la liste pour le loop
+const doubledClients = [...clients, ...clients];
+---
+
+<section class="py-12 overflow-hidden border-y border-gray-800 bg-noir-soft">
+  <div class="marquee-wrapper relative">
+    <!-- Dégradés latéraux -->
+    <div class="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+      style="background: linear-gradient(to right, var(--color-noir-soft), transparent);"
+    ></div>
+    <div class="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+      style="background: linear-gradient(to left, var(--color-noir-soft), transparent);"
+    ></div>
+
+    <div class="marquee-track">
+      {doubledClients.map((client) => (
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <span
+            class="w-2 h-2 rounded-full flex-shrink-0"
+            style={`background-color: ${domainColors[client.domain]};`}
+          ></span>
+          <span class="font-display font-semibold text-gray-400 text-sm md:text-base whitespace-nowrap hover:text-creme transition-colors cursor-default">
+            {client.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

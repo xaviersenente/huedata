@@ -1,0 +1,93 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'outline' | 'link';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  type?: 'button' | 'submit' | 'reset';
+  arrow?: boolean;
+  class?: string;
+  style?: string;
+  target?: string;
+  rel?: string;
+  fullWidth?: boolean;
+  id?: string;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'lg',
+  type = 'button',
+  arrow,
+  class: className = '',
+  style,
+  target,
+  rel,
+  fullWidth = false,
+  id,
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+// primary and link show arrow by default; outline don't
+const showArrow = arrow ?? (variant === 'primary' || variant === 'link');
+
+const sizeClasses: Record<string, string> = {
+  sm: 'text-sm px-5 py-2.5',
+  md: 'text-base px-7 py-3.5',
+  lg: 'text-lg px-8 py-4',
+  xl: 'text-xl px-10 py-5',
+};
+
+const variantClasses: Record<string, string> = {
+  primary:
+    'bg-magenta hover:bg-magenta-dark text-creme font-display font-bold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(233,69,96,0.4)]',
+  outline:
+    'border border-gray-400 hover:border-white text-gray-300 hover:text-creme font-display font-medium rounded-full transition-all duration-300',
+  link: 'font-display font-semibold transition-all duration-300 hover:gap-3',
+};
+
+const isLink = variant === 'link';
+
+const baseClasses = [
+  'group inline-flex items-center gap-2',
+  isLink ? '' : `${sizeClasses[size]} justify-center`,
+  variantClasses[variant],
+  fullWidth && !isLink ? 'w-full' : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      target={target}
+      rel={rel}
+      id={id}
+      aria-label={ariaLabel}
+      class={baseClasses}
+      style={style}
+    >
+      <slot />
+      {showArrow && (
+        <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+      )}
+    </a>
+  ) : (
+    <button
+      type={type}
+      id={id}
+      aria-label={ariaLabel}
+      class={baseClasses}
+      style={style}
+    >
+      <slot />
+      {showArrow && (
+        <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+      )}
+    </button>
+  )
+}

@@ -1,0 +1,95 @@
+---
+import { getCollection, render } from 'astro:content';
+const temoignages = await getCollection('temoignages', (t) => t.data.featured);
+---
+
+<section id="testimonials-section" class="py-24 md:py-32 px-6 bg-noir-soft overflow-hidden">
+  <div class="mx-auto max-w-7xl">
+
+    <!-- Header -->
+    <div class="testim-header mb-20">
+      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
+        <span class="w-6 h-px bg-magenta"></span>
+        Ils en parlent mieux que nous
+      </span>
+      <h2 class="font-display font-bold text-creme" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1;">
+        La data au service<br />
+        <span class="text-gradient-magenta">de vos décisions.</span>
+      </h2>
+    </div>
+
+    <!-- Témoignages -->
+    <div class="space-y-6">
+      {temoignages.map(async (t, i) => {
+        const { Content } = await render(t);
+        return (
+          <div
+            class={`testim-card relative overflow-hidden rounded-2xl p-10 md:p-14 card-glass border border-gray-800`}
+          >
+            <!-- Quote mark -->
+            <div
+              class="absolute top-8 right-8 font-display font-bold text-[10rem] leading-none select-none pointer-events-none"
+              style={`color: ${i === 0 ? '#E94560' : '#3A86FF'}10;`}
+            >
+              "
+            </div>
+
+            <!-- Left accent bar -->
+            <div
+              class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+              style={`background: ${i === 0 ? '#E94560' : '#3A86FF'};`}
+            ></div>
+
+            <div class="relative z-10 max-w-3xl">
+              <p class="font-body text-xl md:text-2xl text-creme leading-relaxed italic mb-8">
+                <Content />
+              </p>
+              <div class="flex items-center gap-4">
+                <!-- Avatar initiales -->
+                <div
+                  class="w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-creme text-sm flex-shrink-0"
+                  style={`background: ${i === 0 ? '#E94560' : '#3A86FF'};`}
+                >
+                  {t.data.author.split(' ').map((n: string) => n[0]).join('')}
+                </div>
+                <div>
+                  <div class="font-display font-semibold text-creme">{t.data.author}</div>
+                  <div class="font-body text-sm text-gray-400">{t.data.role} · {t.data.organization}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.fromTo('.testim-header',
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#testimonials-section', start: 'top 75%' },
+    }
+  );
+
+  gsap.fromTo('.testim-card',
+    { opacity: 0, x: -40 },
+    {
+      opacity: 1,
+      x: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#testimonials-section', start: 'top 65%' },
+    }
+  );
+</script>

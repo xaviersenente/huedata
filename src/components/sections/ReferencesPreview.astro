@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+
+const allRefs = await getCollection('references');
+const featured = allRefs.filter((r) => r.data.featured).slice(0, 4);
+---
+
+<section id="references-section" class="py-24 md:py-32 px-6 bg-noir">
+  <div class="mx-auto max-w-7xl">
+
+    <!-- Header -->
+    <div class="refs-header mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
+          <span class="w-6 h-px bg-mustard"></span>
+          Projets phares
+        </span>
+        <h2 class="font-display font-bold text-creme" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1;">
+          Ils nous font<br />
+          <span class="text-gradient-mustard">confiance.</span>
+        </h2>
+      </div>
+      <Button href="/references" variant="outline" size="md" arrow class="self-start">Toutes les références</Button>
+    </div>
+
+    <!-- Grille références -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {featured.map((ref) => (
+        <Card entry={ref} variant="featured" headingLevel={3} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.fromTo('.refs-header',
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#references-section', start: 'top 75%' },
+    }
+  );
+
+  gsap.fromTo('.ref-card',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#references-section', start: 'top 65%' },
+    }
+  );
+</script>

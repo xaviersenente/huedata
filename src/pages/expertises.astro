@@ -1,0 +1,136 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/sections/CTA.astro';
+import Button from '../components/ui/Button.astro';
+
+const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
+
+const icons: Record<string, string> = {
+  chart: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  chat: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  target: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  map: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>`,
+};
+---
+
+<Layout
+  title="Expertises — HueData"
+  description="Études quantitatives, analyses qualitatives, stratégie data-driven et impact économique pour les acteurs culturels et événementiels."
+>
+  <!-- Hero page -->
+  <section class="pt-40 pb-20 px-6 bg-noir relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <div class="blur-blob absolute w-[500px] h-[500px] bg-electric" style="top: -200px; right: -100px; opacity: 0.2;"></div>
+    </div>
+    <div class="mx-auto max-w-7xl relative z-10">
+      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-6">
+        <span class="w-6 h-px bg-electric"></span>
+        Ce qu'on fait
+      </span>
+      <h1 class="font-display font-bold text-creme mb-6" style="font-size: clamp(3rem, 7vw, 6rem); line-height: 1.0; letter-spacing: -0.03em;">
+        Quatre pôles,<br />
+        <span class="text-gradient-magenta">une obsession.</span>
+      </h1>
+      <p class="font-body text-gray-400 text-xl max-w-2xl leading-relaxed">
+        Des études rigoureuses, une approche terrain, des recommandations actionnables.
+        Pour que vos données travaillent vraiment pour vous.
+      </p>
+    </div>
+  </section>
+
+  <!-- Expertises détaillées -->
+  <section class="py-16 px-6 bg-noir">
+    <div class="mx-auto max-w-7xl space-y-6">
+      {expertises.map(async (exp, i) => {
+        const { Content } = await render(exp);
+        const isEven = i % 2 === 0;
+        return (
+          <div
+            id={exp.slug}
+            class="group relative rounded-2xl overflow-hidden card-glass border border-gray-800 hover:border-opacity-60 transition-all duration-500"
+            style={`scroll-margin-top: 100px; --card-color: ${exp.data.color};`}
+          >
+            <!-- Top accent -->
+            <div class="absolute top-0 left-0 right-0 h-0.5" style={`background: linear-gradient(90deg, ${exp.data.color}, transparent);`}></div>
+
+            <div class="grid md:grid-cols-2 gap-0">
+              <!-- Left: title + icon -->
+              <div
+                class="p-10 md:p-14 flex flex-col justify-between border-b md:border-b-0 md:border-r border-gray-800"
+                style={`background: ${exp.data.color}08;`}
+              >
+                <div>
+                  <div
+                    class="w-16 h-16 rounded-2xl flex items-center justify-center mb-8"
+                    style={`background: ${exp.data.color}20; color: ${exp.data.color};`}
+                    set:html={icons[exp.data.icon] ?? icons.chart}
+                  ></div>
+                  <div class="font-display font-bold text-8xl leading-none mb-4 select-none" style={`color: ${exp.data.color}20;`}>
+                    0{i + 1}
+                  </div>
+                  <h2 class="font-display font-bold text-creme text-3xl md:text-4xl mb-4" style="line-height: 1.1;">
+                    {exp.data.title}
+                  </h2>
+                  <p class="font-body text-gray-400 text-lg leading-relaxed">{exp.data.description}</p>
+                </div>
+              </div>
+
+              <!-- Right: content + methods -->
+              <div class="p-10 md:p-14">
+                <div class="prose-custom mb-8">
+                  <Content />
+                </div>
+                {exp.data.methods && exp.data.methods.length > 0 && (
+                  <div>
+                    <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-4">Méthodes</h3>
+                    <ul class="space-y-3">
+                      {exp.data.methods.map((method: string) => (
+                        <li class="flex items-start gap-3">
+                          <span class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={`background: ${exp.data.color};`}></span>
+                          <span class="font-body text-gray-400 text-sm">{method}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <Button href="/contact" variant="link" class="mt-8 text-sm" style={`color: ${exp.data.color};`}>Discutons de votre projet</Button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
+
+<style>
+  .prose-custom :global(p) {
+    color: rgb(136, 136, 136);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray<HTMLElement>('[id^="etudes"], [id^="analyses"], [id^="strategie"], [id^="impact"]').forEach((el) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 75%' },
+      }
+    );
+  });
+</script>
