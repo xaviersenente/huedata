@@ -6,12 +6,12 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
-import node from "@astrojs/node";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  adapter: node({ mode: "standalone" }),
+  adapter: netlify(),
 
   vite: {
     plugins: [tailwindcss()],
