@@ -2,7 +2,7 @@
 title: "Études quantitatives & datamining"
 icon: "chart"
 order: 1
-color: "#3A86FF"
+color: "electric"
 description: "On aime les données. Vraiment. Des milliers de lignes de billetterie, des centaines de questionnaires – on en fait des pépites actionnables."
 methods:
   - "Enquêtes de satisfaction (web, papier, terrain)"

@@ -1,53 +1,65 @@
 ---
 // Bandeau défilant logos clients
-const clients = [
-  { name: 'No Logo Festival', domain: 'festival' },
-  { name: 'Les Eurockéennes', domain: 'festival' },
-  { name: 'Le Moloco', domain: 'salle' },
-  { name: 'La Filature de Mulhouse', domain: 'salle' },
-  { name: 'FC Sochaux-Montbéliard', domain: 'sport' },
-  { name: 'Musée des Beaux-Arts', domain: 'musee' },
-  { name: 'Rencontres & Racines', domain: 'festival' },
-  { name: 'FEMA BFC', domain: 'collectivite' },
-  { name: 'La Paille', domain: 'association' },
-  { name: 'Peace and Lobe', domain: 'festival' },
-];
-
-const domainColors: Record<string, string> = {
-  festival: '#E94560',
-  salle: '#3A86FF',
-  musee: '#FFBE0B',
-  sport: '#06D6A0',
-  collectivite: '#3A86FF',
-  association: '#06D6A0',
-};
-
-// Double la liste pour le loop
-const doubledClients = [...clients, ...clients];
+import { domainDotClass } from "../../data/domains";
+import { clients } from "../../data/clients";
 ---
 
-<section class="py-12 overflow-hidden border-y border-gray-800 bg-noir-soft">
-  <div class="marquee-wrapper relative">
-    <!-- Dégradés latéraux -->
-    <div class="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-      style="background: linear-gradient(to right, var(--color-noir-soft), transparent);"
-    ></div>
-    <div class="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-      style="background: linear-gradient(to left, var(--color-noir-soft), transparent);"
-    ></div>
-
-    <div class="marquee-track">
-      {doubledClients.map((client) => (
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <span
-            class="w-2 h-2 rounded-full flex-shrink-0"
-            style={`background-color: ${domainColors[client.domain]};`}
-          ></span>
-          <span class="font-display font-semibold text-gray-400 text-sm md:text-base whitespace-nowrap hover:text-creme transition-colors cursor-default">
-            {client.name}
-          </span>
-        </div>
-      ))}
-    </div>
+<div
+  class="relative overflow-hidden border-y border-gray-800 bg-noir-soft py-12"
+>
+  <!-- Dégradés latéraux -->
+  <div
+    class="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 bg-linear-to-r from-noir-soft to-transparent"
+  >
   </div>
-</section>
+  <div
+    class="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-24 bg-linear-to-l from-noir-soft to-transparent"
+  >
+  </div>
+
+  <div class="marquee-track">
+    {
+      [0, 1].map((copy) => (
+        <div
+          class="flex shrink-0 items-center gap-16 pr-16"
+          aria-hidden={copy > 0}
+        >
+          {clients.map((client) => (
+            <div class="flex items-center gap-3">
+              <span
+                class={`h-2 w-2 shrink-0 rounded-full ${domainDotClass[client.domain]}`}
+              />
+              <span class="cursor-default font-display text-sm font-semibold whitespace-nowrap text-gray-400 transition-colors hover:text-creme md:text-base">
+                {client.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  const track = document.querySelector<HTMLElement>(".marquee-track");
+  const set1 = track?.firstElementChild as HTMLElement | null;
+
+  if (
+    track &&
+    set1 &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    const width = set1.offsetWidth;
+    const anim = gsap.to(track, {
+      x: -width,
+      duration: 50,
+      ease: "none",
+      repeat: -1,
+    });
+
+    track.addEventListener("mouseenter", () => anim.pause());
+    track.addEventListener("mouseleave", () => anim.resume());
+  }
+</script>

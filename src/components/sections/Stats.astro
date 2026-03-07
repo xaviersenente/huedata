@@ -1,116 +1,124 @@
 ---
-const stats = [
-  { value: 200, prefixe: '+', suffix: '', label: 'projets pilotés', color: '#E94560' },
-  { value: 15, prefixe: '', suffix: 'ans', label: 'd\'expérience', color: '#3A86FF' },
-  { value: 44000, prefixe: '', suffix: '', label: 'lignes de données max', color: '#FFBE0B' },
-  { value: 1900, prefixe: '', suffix: '', label: 'réponses max / étude', color: '#06D6A0' },
-];
+import { colorTextClass } from "../../data/domains";
+import { stats } from "../../data/stats";
 ---
 
-<section id="stats-section" class="py-24 md:py-32 px-6 bg-noir">
+<section id="stats-section" class="bg-noir px-6 py-24 md:py-32">
   <div class="mx-auto max-w-7xl">
-
     <!-- Header -->
-    <div class="stats-header mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+    <div
+      class="stats-header mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+    >
       <div>
-        <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
-          <span class="w-6 h-px bg-sage"></span>
+        <span
+          class="mb-4 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
+        >
+          <span class="h-px w-6 bg-sage"></span>
           En chiffres
         </span>
-        <h2 class="font-display font-bold text-creme" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1;">
-          On aime les données.<br />
-          <span class="text-gradient-mustard">Les nôtres aussi.</span>
+        <h2
+          class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] font-bold text-creme"
+        >
+          Des chiffres qui parlent.<br />
+          <span class="text-gradient-mustard">Pour vous.</span>
         </h2>
       </div>
-      <p class="font-body text-gray-400 max-w-xs text-base">
-        15 ans de recherche appliquée et de terrain dans le secteur culturel et événementiel.
+      <p class="max-w-xs font-body text-base text-gray-400">
+        15 ans de recherche appliquée et de terrain dans le secteur culturel et
+        événementiel.
       </p>
     </div>
 
     <!-- Grille stats -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-800">
-      {stats.map((stat, i) => (
-        <div
-          class="stat-card bg-noir p-8 lg:p-12 flex flex-col justify-between min-h-48"
-          data-value={stat.value}
-          data-prefix={stat.prefix}
-          data-suffix={stat.suffix}
-          data-index={i}
-        >
+    <div class="grid grid-cols-2 gap-px bg-gray-800 lg:grid-cols-4">
+      {
+        stats.map((stat, i) => (
           <div
-            class="font-display font-bold leading-none mb-4"
-            style={`font-size: clamp(2.8rem, 2.08rem + 2.4vw, 4rem); color: ${stat.color};`}
-           
+            class="stat-card flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
+            data-value={stat.value}
+            data-prefix={stat.prefix}
+            data-suffix={stat.suffix}
+            data-index={i}
           >
-            {stat.prefixe && <span class="">{stat.prefixe}</span>}
-            <span class="stat-number">0</span>
-            {stat.suffix && <span class="text-2xl lg:text-3xl">{stat.suffix}</span>}
+            <div
+              class={`mb-4 font-display text-[clamp(2.8rem,2.08rem+2.4vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
+            >
+              {stat.prefix && <span class="">{stat.prefix}</span>}
+              <span class="stat-number">0</span>
+              {stat.suffix && (
+                <span class="text-2xl lg:text-3xl">{stat.suffix}</span>
+              )}
+            </div>
+            <div class="font-body text-sm text-gray-400 lg:text-base">
+              {stat.label}
+            </div>
           </div>
-          <div class="font-body text-gray-400 text-sm lg:text-base">{stat.label}</div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
 
   // Header reveal
-  gsap.fromTo('.stats-header',
+  gsap.fromTo(
+    ".stats-header",
     { opacity: 0, y: 50 },
     {
       opacity: 1,
       y: 0,
       duration: 1,
-      ease: 'power3.out',
+      ease: "power3.out",
       scrollTrigger: {
-        trigger: '#stats-section',
-        start: 'top 75%',
+        trigger: "#stats-section",
+        start: "top 75%",
       },
-    }
+    },
   );
 
   // Cards stagger
-  gsap.fromTo('.stat-card',
+  gsap.fromTo(
+    ".stat-card",
     { opacity: 0, y: 40 },
     {
       opacity: 1,
       y: 0,
       duration: 0.7,
       stagger: 0.1,
-      ease: 'power3.out',
+      ease: "power3.out",
       scrollTrigger: {
-        trigger: '#stats-section',
-        start: 'top 65%',
+        trigger: "#stats-section",
+        start: "top 65%",
       },
-    }
+    },
   );
 
   // CountUp animation
-  document.querySelectorAll<HTMLElement>('.stat-card').forEach((card) => {
-    const target = parseInt(card.dataset.value ?? '0', 10);
-    const numberEl = card.querySelector('.stat-number');
+  document.querySelectorAll<HTMLElement>(".stat-card").forEach((card) => {
+    const target = parseInt(card.dataset.value ?? "0", 10);
+    const numberEl = card.querySelector(".stat-number");
     if (!numberEl) return;
 
     ScrollTrigger.create({
       trigger: card,
-      start: 'top 80%',
+      start: "top 80%",
       once: true,
       onEnter: () => {
-        gsap.to({ val: 0 }, {
-          val: target,
-          duration: 2,
-          ease: 'power2.out',
-          onUpdate: function () {
-            const v = Math.round(this.targets()[0].val);
-            numberEl.textContent = v >= 1000
-              ? v.toLocaleString('fr-FR')
-              : String(v);
+        gsap.to(
+          { val: 0 },
+          {
+            val: target,
+            duration: 2,
+            ease: "power2.out",
+            onUpdate: function () {
+              const v = Math.round(this.targets()[0].val);
+              numberEl.textContent =
+                v >= 1000 ? v.toLocaleString("fr-FR") : String(v);
+            },
           },
-        });
+        );
       },
     });
   });

@@ -1,9 +1,9 @@
 ---
-import '@fontsource-variable/inter';
-import '@fontsource-variable/space-grotesk';
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
 
-import '../styles/global.css';
-import Button from '../components/ui/Button.astro';
+import "../styles/global.css";
+import Button from "../components/ui/Button.astro";
 
 interface Props {
   title?: string;
@@ -12,18 +12,21 @@ interface Props {
 }
 
 const {
-  title = 'HueData — Marketing d\'études pour l\'événementiel & le culturel',
-  description = 'HueData transforme vos données en décisions. Études quantitatives, analyses qualitatives et stratégie data-driven pour les acteurs culturels et événementiels.',
-  image = '/images/og-default.jpg',
+  title = "HueData — Marketing d'études pour l'événementiel & le culturel",
+  description = "HueData transforme vos données en décisions. Études quantitatives, analyses qualitatives et stratégie data-driven pour les acteurs culturels et événementiels.",
+  image = "/images/og-default.jpg",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://huedata.fr');
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site ?? "https://huedata.fr",
+);
 
 const navLinks = [
-  { href: '/expertises', label: 'Expertises' },
-  { href: '/references', label: 'Références' },
-  { href: '/a-propos', label: 'À propos' },
-  { href: '/contact', label: 'Contact' },
+  { href: "/expertises", label: "Expertises" },
+  { href: "/references", label: "Références" },
+  { href: "/a-propos", label: "À propos" },
+  { href: "/contact", label: "Contact" },
 ];
 ---
 
@@ -46,6 +49,12 @@ const navLinks = [
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
 
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -57,105 +66,164 @@ const navLinks = [
         "name": "HueData",
         "description": "Expert en marketing d'études pour l'événementiel et le culturel",
         "url": "https://huedata.fr",
+        "image": "https://huedata.fr/images/og-default.jpg",
         "founder": {
           "@type": "Person",
-          "name": "Stéphane Laurent"
+          "name": "Stéphane Laurent",
+          "jobTitle": "Enseignant-chercheur & Consultant"
         },
-        "areaServed": "France",
-        "serviceType": ["Marketing Research", "Data Analysis", "Cultural Events"]
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Bourgogne-Franche-Comté",
+          "addressCountry": "FR"
+        },
+        "email": "contact@huedata.fr",
+        "areaServed": {
+          "@type": "Country",
+          "name": "France"
+        },
+        "serviceType": [
+          "Études quantitatives",
+          "Analyses qualitatives",
+          "Stratégie data-driven",
+          "Mesure d'impact économique"
+        ],
+        "knowsAbout": [
+          "Marketing culturel",
+          "Événementiel",
+          "Data analysis",
+          "Études de marché"
+        ],
+        "sameAs": ["https://www.linkedin.com/in/stephane-laurent-huedata/"]
       }
     </script>
+    <slot name="head" />
   </head>
 
   <body>
+    <!-- Skip to content -->
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-magenta focus:px-4 focus:py-2 focus:font-display focus:text-sm focus:font-semibold focus:text-creme"
+    >
+      Aller au contenu
+    </a>
+
     <!-- Grain texture overlay -->
     <div class="noise-overlay" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <header
       id="site-nav"
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      class="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
     >
-      <nav class="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-20">
+      <nav
+        class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8"
+      >
         <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 group" aria-label="HueData – Accueil">
-          <span class="font-display font-bold text-2xl text-creme tracking-tight">
+        <a
+          href="/"
+          class="group flex items-center gap-2"
+          aria-label="HueData – Accueil"
+        >
+          <span
+            class="font-display text-2xl font-bold tracking-tight text-creme"
+          >
             Hue<span class="text-magenta">Data</span>
           </span>
         </a>
 
         <!-- Desktop nav -->
-        <div class="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              href={link.href}
-              class="font-body text-sm text-gray-400 hover:text-creme transition-colors duration-200 relative group"
-            >
-              {link.label}
-              <span class="absolute -bottom-0.5 left-0 w-0 h-px bg-magenta transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
+        <div class="hidden items-center gap-8 md:flex">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="group relative font-body text-sm text-gray-400 transition-colors duration-200 hover:text-creme"
+              >
+                {link.label}
+                <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-magenta transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))
+          }
           <Button href="/contact" size="sm">Discutons</Button>
         </div>
 
         <!-- Mobile hamburger -->
         <button
           id="menu-toggle"
-          class="md:hidden flex flex-col gap-1.5 p-2"
+          class="flex flex-col gap-1.5 p-2 md:hidden"
           aria-label="Menu"
           aria-expanded="false"
         >
-          <span class="menu-bar block w-6 h-0.5 bg-creme transition-all duration-300"></span>
-          <span class="menu-bar block w-6 h-0.5 bg-creme transition-all duration-300"></span>
-          <span class="menu-bar block w-4 h-0.5 bg-creme transition-all duration-300"></span>
+          <span
+            class="menu-bar block h-0.5 w-6 bg-creme transition-all duration-300"
+          ></span>
+          <span
+            class="menu-bar block h-0.5 w-6 bg-creme transition-all duration-300"
+          ></span>
+          <span
+            class="menu-bar block h-0.5 w-4 bg-creme transition-all duration-300"
+          ></span>
         </button>
       </nav>
 
       <!-- Mobile menu -->
       <div
         id="mobile-menu"
-        class="md:hidden hidden bg-noir-soft border-t border-gray-800 px-6 py-6"
+        class="hidden border-t border-gray-800 bg-noir-soft px-6 py-6 md:hidden"
       >
         <div class="flex flex-col gap-6">
-          {navLinks.map((link) => (
-            <a
-              href={link.href}
-              class="font-display text-xl text-creme hover:text-magenta transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-          <Button href="/contact" size="md" fullWidth class="text-center">Discutons</Button>
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="font-display text-xl text-creme transition-colors hover:text-magenta"
+              >
+                {link.label}
+              </a>
+            ))
+          }
+          <Button href="/contact" size="md" fullWidth class="text-center"
+            >Discutons</Button
+          >
         </div>
       </div>
     </header>
 
     <!-- Main content -->
-    <main>
+    <main id="main">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="bg-noir-soft border-t border-gray-800 py-16 px-6">
+    <footer class="border-t border-gray-800 bg-noir-soft px-6 py-16">
       <div class="mx-auto max-w-7xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-3">
           <!-- Brand -->
           <div>
-            <a href="/" class="font-display font-bold text-3xl text-creme">
+            <a href="/" class="font-display text-3xl font-bold text-creme">
               Hue<span class="text-magenta">Data</span>
             </a>
-            <p class="mt-4 text-gray-400 text-sm leading-relaxed max-w-xs">
-              Marketing d'études pour l'événementiel et le culturel.
-              On transforme vos données en décisions.
+            <p class="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
+              Marketing d'études pour l'événementiel et le culturel. On
+              transforme vos données en décisions.
             </p>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/stephane-laurent-huedata/"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-6 inline-flex items-center gap-2 text-sm text-gray-400 hover:text-electric transition-colors"
+              class="mt-6 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-electric"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                ></path>
               </svg>
               LinkedIn
             </a>
@@ -163,32 +231,45 @@ const navLinks = [
 
           <!-- Navigation -->
           <div>
-            <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-6">Navigation</h3>
+            <h3
+              class="mb-6 font-display text-sm font-semibold tracking-widest text-creme uppercase"
+            >
+              Navigation
+            </h3>
             <ul class="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <li>
-                  <a href={link.href} class="text-gray-400 hover:text-creme text-sm transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {
+                navLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sm text-gray-400 transition-colors hover:text-creme"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
 
           <!-- Contact -->
           <div>
-            <h3 class="font-display font-semibold text-creme text-sm uppercase tracking-widest mb-6">Contact</h3>
+            <h3
+              class="mb-6 font-display text-sm font-semibold tracking-widest text-creme uppercase"
+            >
+              Contact
+            </h3>
             <div class="flex flex-col gap-3">
               <a
                 href="mailto:contact@huedata.fr"
-                class="text-gray-400 hover:text-magenta text-sm transition-colors"
+                class="text-sm text-gray-400 transition-colors hover:text-magenta"
               >
                 contact@huedata.fr
               </a>
-              <span class="text-gray-400 text-sm">Bourgogne-Franche-Comté</span>
+              <span class="text-sm text-gray-400">Bourgogne-Franche-Comté</span>
               <a
                 href="/contact"
-                class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-magenta hover:text-magenta-dark transition-colors"
+                class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-magenta transition-colors hover:text-magenta-dark"
               >
                 Décrire votre projet →
               </a>
@@ -197,13 +278,21 @@ const navLinks = [
         </div>
 
         <!-- Bottom bar -->
-        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-gray-400 text-xs">
-            HueData — Stéphane Laurent
-          </p>
+        <div
+          class="flex flex-col items-center justify-between gap-4 border-t border-gray-800 pt-8 md:flex-row"
+        >
+          <p class="text-xs text-gray-400">HueData — Stéphane Laurent</p>
           <div class="flex gap-6">
-            <a href="/mentions-legales" class="text-gray-400 hover:text-creme text-xs transition-colors">Mentions légales</a>
-            <a href="/politique-de-confidentialite" class="text-gray-400 hover:text-creme text-xs transition-colors">Confidentialité</a>
+            <a
+              href="/mentions-legales"
+              class="text-xs text-gray-400 transition-colors hover:text-creme"
+              >Mentions légales</a
+            >
+            <a
+              href="/politique-de-confidentialite"
+              class="text-xs text-gray-400 transition-colors hover:text-creme"
+              >Confidentialité</a
+            >
           </div>
         </div>
       </div>
@@ -211,35 +300,64 @@ const navLinks = [
 
     <!-- Nav scroll behavior + mobile menu -->
     <script>
-      const nav = document.getElementById('site-nav');
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuBars = document.querySelectorAll('.menu-bar');
+      const nav = document.getElementById("site-nav");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuBars = document.querySelectorAll(".menu-bar");
 
       // Scroll behavior
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 60) {
-          nav?.classList.add('bg-noir/95', 'backdrop-blur-md');
-        } else {
-          nav?.classList.remove('bg-noir/95', 'backdrop-blur-md');
-        }
-      }, { passive: true });
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (window.scrollY > 60) {
+            nav?.classList.add("bg-noir/95", "backdrop-blur-md");
+          } else {
+            nav?.classList.remove("bg-noir/95", "backdrop-blur-md");
+          }
+        },
+        { passive: true },
+      );
 
       // Mobile menu toggle
       let menuOpen = false;
-      menuToggle?.addEventListener('click', () => {
+      const focusableInMenu =
+        mobileMenu?.querySelectorAll<HTMLElement>("a, button");
+
+      menuToggle?.addEventListener("click", () => {
         menuOpen = !menuOpen;
-        menuToggle.setAttribute('aria-expanded', String(menuOpen));
-        mobileMenu?.classList.toggle('hidden', !menuOpen);
+        menuToggle.setAttribute("aria-expanded", String(menuOpen));
+        mobileMenu?.classList.toggle("hidden", !menuOpen);
 
         if (menuOpen) {
-          menuBars[0]?.classList.add('rotate-45', 'translate-y-2');
-          menuBars[1]?.classList.add('opacity-0');
-          menuBars[2]?.classList.add('-rotate-45', '-translate-y-2', 'w-6');
+          menuBars[0]?.classList.add("rotate-45", "translate-y-2");
+          menuBars[1]?.classList.add("opacity-0");
+          menuBars[2]?.classList.add("-rotate-45", "-translate-y-2", "w-6");
+          // Focus first menu item
+          focusableInMenu?.[0]?.focus();
         } else {
-          menuBars[0]?.classList.remove('rotate-45', 'translate-y-2');
-          menuBars[1]?.classList.remove('opacity-0');
-          menuBars[2]?.classList.remove('-rotate-45', '-translate-y-2', 'w-6');
+          menuBars[0]?.classList.remove("rotate-45", "translate-y-2");
+          menuBars[1]?.classList.remove("opacity-0");
+          menuBars[2]?.classList.remove("-rotate-45", "-translate-y-2", "w-6");
+          menuToggle.focus();
+        }
+      });
+
+      // Trap focus inside mobile menu when open
+      mobileMenu?.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (!menuOpen || !focusableInMenu?.length) return;
+        if (e.key === "Escape") {
+          menuToggle?.click();
+          return;
+        }
+        if (e.key !== "Tab") return;
+        const first = focusableInMenu[0];
+        const last = focusableInMenu[focusableInMenu.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
       });
     </script>

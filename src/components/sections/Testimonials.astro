@@ -1,95 +1,224 @@
 ---
 import { getCollection, render } from 'astro:content';
 const temoignages = await getCollection('temoignages', (t) => t.data.featured);
+const rendered = await Promise.all(
+  temoignages.map(async (t, i) => {
+    const { Content } = await render(t);
+    return { t, Content, i };
+  })
+);
+
+// Classes Tailwind par index — les valeurs hex sont remplacées par les tokens du thème
+const accentText = ['text-magenta', 'text-electric', 'text-sage', 'text-mustard'];
+const accentBg   = ['bg-magenta',   'bg-electric',   'bg-sage',   'bg-mustard'];
 ---
 
 <section id="testimonials-section" class="py-24 md:py-32 px-6 bg-noir-soft overflow-hidden">
   <div class="mx-auto max-w-7xl">
 
     <!-- Header -->
-    <div class="testim-header mb-20">
+    <div class="testim-header mb-16">
       <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
         <span class="w-6 h-px bg-magenta"></span>
         Ils en parlent mieux que nous
       </span>
-      <h2 class="font-display font-bold text-creme" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1;">
+      <h2 class="font-display font-bold text-creme text-[clamp(2.5rem,5vw,4.5rem)]">
         La data au service<br />
         <span class="text-gradient-magenta">de vos décisions.</span>
       </h2>
     </div>
 
-    <!-- Témoignages -->
-    <div class="space-y-6">
-      {temoignages.map(async (t, i) => {
-        const { Content } = await render(t);
-        return (
-          <div
-            class={`testim-card relative overflow-hidden rounded-2xl p-10 md:p-14 card-glass border border-gray-800`}
-          >
-            <!-- Quote mark -->
+    <!-- Carousel -->
+    <div class="relative" role="region" aria-roledescription="carousel" aria-label="Témoignages clients">
+
+      <!-- Slides -->
+      <div id="testim-track" class="relative" aria-live="polite" aria-atomic="true">
+        {rendered.map(({ t, Content, i }) => {
+          const isFirst = i === 0;
+          const colorText = accentText[i % accentText.length];
+          const colorBg   = accentBg[i % accentBg.length];
+          return (
             <div
-              class="absolute top-8 right-8 font-display font-bold text-[10rem] leading-none select-none pointer-events-none"
-              style={`color: ${i === 0 ? '#E94560' : '#3A86FF'}10;`}
+              class={`testim-slide ${isFirst ? 'relative pointer-events-auto' : 'absolute inset-x-0 top-0 opacity-0 pointer-events-none'}`}
+              data-index={i}
             >
-              "
-            </div>
+              <!-- Guillemet décoratif — font-size clamp non couvrable par Tailwind -->
+              <div
+                class={`font-display font-bold leading-[0.8] select-none text-[clamp(5rem,12vw,9rem)] ${colorText}`}
+              >
+                "
+              </div>
 
-            <!-- Left accent bar -->
-            <div
-              class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
-              style={`background: ${i === 0 ? '#E94560' : '#3A86FF'};`}
-            ></div>
-
-            <div class="relative z-10 max-w-3xl">
-              <p class="font-body text-xl md:text-2xl text-creme leading-relaxed italic mb-8">
+              <!-- Citation -->
+              <blockquote
+                class="font-display  text-creme italic mb-10 leading-snug max-w-250 text-[clamp(1.4rem,3vw,2rem)]"
+              >
                 <Content />
-              </p>
+              </blockquote>
+
+              <!-- Auteur -->
               <div class="flex items-center gap-4">
-                <!-- Avatar initiales -->
-                <div
-                  class="w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-creme text-sm flex-shrink-0"
-                  style={`background: ${i === 0 ? '#E94560' : '#3A86FF'};`}
-                >
-                  {t.data.author.split(' ').map((n: string) => n[0]).join('')}
-                </div>
+                <span class={`w-8 h-px ${colorBg}`}></span>
                 <div>
-                  <div class="font-display font-semibold text-creme">{t.data.author}</div>
-                  <div class="font-body text-sm text-gray-400">{t.data.role} · {t.data.organization}</div>
+                  <span class="font-display font-semibold text-creme text-base">{t.data.author}</span>
+                  <span class="font-body text-gray-400 text-sm ml-2">— {t.data.role}, {t.data.organization}</span>
                 </div>
               </div>
             </div>
+          );
+        })}
+      </div>
+
+      <!-- Navigation -->
+      {rendered.length > 1 && (
+        <div class="flex items-center gap-6 mt-12">
+          <!-- Flèches -->
+          <button
+            id="testim-prev"
+            class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-magenta hover:text-creme transition-all duration-200"
+            aria-label="Témoignage précédent"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <button
+            id="testim-next"
+            class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-magenta hover:text-creme transition-all duration-200"
+            aria-label="Témoignage suivant"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          <!-- Pause/Play -->
+          <button
+            id="testim-pause"
+            class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-magenta hover:text-creme transition-all duration-200"
+            aria-label="Mettre en pause le défilement automatique"
+          >
+            <svg id="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" />
+            </svg>
+            <svg id="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="hidden">
+              <polygon points="6,4 20,12 6,20" />
+            </svg>
+          </button>
+
+          <!-- Dots -->
+          <div class="flex items-center gap-3">
+            {rendered.map((_, i) => (
+              <button
+                class={`testim-dot h-1 rounded-full transition-all duration-300 ${i === 0 ? `w-8 ${accentBg[0]}` : 'w-2 bg-gray-700'}`}
+                data-dot={i}
+                data-accent={accentBg[i % accentBg.length]}
+                aria-label={`Témoignage ${i + 1}`}
+              />
+            ))}
           </div>
-        );
-      })}
+        </div>
+      )}
     </div>
+
   </div>
 </section>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, ScrollTrigger } from '../../lib/gsap';
 
   gsap.fromTo('.testim-header',
-    { opacity: 0, y: 50 },
+    { opacity: 0, y: 40 },
     {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out',
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
       scrollTrigger: { trigger: '#testimonials-section', start: 'top 75%' },
     }
   );
-
-  gsap.fromTo('.testim-card',
-    { opacity: 0, x: -40 },
+  gsap.fromTo('#testim-track',
+    { opacity: 0, y: 30 },
     {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#testimonials-section', start: 'top 65%' },
+      opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.15,
+      scrollTrigger: { trigger: '#testimonials-section', start: 'top 70%' },
     }
   );
+
+  const slides = document.querySelectorAll<HTMLElement>('.testim-slide');
+  const dots   = document.querySelectorAll<HTMLElement>('.testim-dot');
+  let current = 0;
+  let autoTimer: ReturnType<typeof setInterval>;
+
+  function updateDots(next: number) {
+    dots.forEach((dot, i) => {
+      const accent = dot.dataset.accent ?? 'bg-magenta';
+      if (i === next) {
+        dot.classList.remove('w-2', 'bg-gray-700');
+        dot.classList.add('w-8', accent);
+      } else {
+        dot.classList.remove('w-8', accent);
+        dot.classList.add('w-2', 'bg-gray-700');
+      }
+    });
+  }
+
+  function goTo(next: number) {
+    const prev = current;
+    current = (next + slides.length) % slides.length;
+    if (prev === current) return;
+
+    const leaving  = slides[prev];
+    const entering = slides[current];
+    const dir = next > prev ? 1 : -1;
+
+    // Swap layout roles immédiatement : entering en flux, leaving en overlay
+    entering.classList.remove('absolute', 'inset-x-0', 'top-0', 'pointer-events-none');
+    entering.classList.add('relative', 'pointer-events-auto');
+    leaving.classList.remove('relative', 'pointer-events-auto');
+    leaving.classList.add('absolute', 'inset-x-0', 'top-0', 'pointer-events-none');
+
+    // États initiaux (xPercent = % de la largeur propre de l'élément)
+    gsap.set(leaving,  { opacity: 1, xPercent: 0 });
+    gsap.set(entering, { opacity: 0, xPercent: dir * 3 });
+
+    const tl = gsap.timeline();
+    // Sortie et entrée simultanées
+    tl.to(leaving,  { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, 0);
+    tl.to(entering, { opacity: 1, xPercent: 0, duration: 0.55, ease: 'power3.out' }, 0.2);
+
+    updateDots(current);
+  }
+
+  document.getElementById('testim-prev')?.addEventListener('click', () => { resetAuto(); goTo(current - 1); });
+  document.getElementById('testim-next')?.addEventListener('click', () => { resetAuto(); goTo(current + 1); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
+
+  // Pause / Play
+  let paused = false;
+  const pauseBtn = document.getElementById('testim-pause');
+  const iconPause = document.getElementById('icon-pause');
+  const iconPlay  = document.getElementById('icon-play');
+  const track     = document.getElementById('testim-track');
+
+  pauseBtn?.addEventListener('click', () => {
+    paused = !paused;
+    if (paused) {
+      clearInterval(autoTimer);
+      track?.setAttribute('aria-live', 'off');
+      iconPause?.classList.add('hidden');
+      iconPlay?.classList.remove('hidden');
+      pauseBtn.setAttribute('aria-label', 'Reprendre le défilement automatique');
+    } else {
+      resetAuto();
+      track?.setAttribute('aria-live', 'polite');
+      iconPause?.classList.remove('hidden');
+      iconPlay?.classList.add('hidden');
+      pauseBtn.setAttribute('aria-label', 'Mettre en pause le défilement automatique');
+    }
+  });
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(current + 1), 6000);
+  }
+
+  resetAuto();
 </script>

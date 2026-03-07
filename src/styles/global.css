@@ -15,12 +15,12 @@
   --color-noir-soft: #141414;
   --color-noir-card: #1c1c1c;
   --color-creme: #f8f6f2;
-  --color-gray-900: #1a1a1a;
-  --color-gray-800: #252525;
-  --color-gray-700: #333333;
-  --color-gray-400: #888888;
-  --color-gray-200: #e0ddd9;
-  --color-gray-100: #f0ede9;
+  /* --color-gray-900: #1a1a1a; */
+  --color-gray-800: oklch(27.4% 0.006 286.033); /* #252525 */
+  --color-gray-700: oklch(37% 0.013 285.805); /* #333333; */
+  --color-gray-400: oklch(70.5% 0.015 286.067);
+  /* --color-gray-200: #e0ddd9; */
+  /* --color-gray-100: #f0ede9; */
 
   /* ── Typographie ── */
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
@@ -38,38 +38,40 @@
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* ── Reset & base ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  /* ── Reset & base ── */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  margin: 0;
-  background-color: var(--color-noir);
-  color: var(--color-creme);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+  body {
+    margin: 0;
+    background-color: var(--color-noir);
+    color: var(--color-creme);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-/* ── Typographie globale ── */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  /* ── Typographie globale ── */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
 }
 
 /* ── Utilitaires personnalisés ── */
@@ -96,6 +98,13 @@ h6 {
     background-clip: text;
   }
 
+  /* ── Focus visible global ── */
+  *:focus-visible {
+    outline: 2px solid var(--color-magenta);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
   .clip-reveal {
     clip-path: inset(0 0 100% 0);
   }
@@ -114,13 +123,6 @@ h6 {
 
   .marquee-track {
     display: flex;
-    gap: 4rem;
-    animation: marquee 28s linear infinite;
-    white-space: nowrap;
-  }
-
-  .marquee-track:hover {
-    animation-play-state: paused;
   }
 
   .noise-overlay {
@@ -183,18 +185,31 @@ h6 {
   .bg-domain-association {
     background-color: color-mix(in srgb, var(--color-sage) 15%, transparent);
   }
+
+  /* Facette cards — accent dynamique via --card-accent */
+  .facette-glow {
+    background: radial-gradient(
+      ellipse at top left,
+      color-mix(in srgb, var(--card-accent) 7%, transparent),
+      transparent 60%
+    );
+  }
+  .facette-bar {
+    background: var(--card-accent);
+  }
+  .facette-icon-wrap {
+    background: color-mix(in srgb, var(--card-accent) 13%, transparent);
+    color: var(--card-accent);
+  }
+
+  /* Timeline dot — glow coloré via --dot-accent */
+  .timeline-dot-glow {
+    background: var(--dot-accent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--dot-accent) 40%, transparent);
+  }
 }
 
 /* ── Animations CSS ── */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes float {
   0%,
   100% {
@@ -237,10 +252,4 @@ h6 {
 ::selection {
   background-color: var(--color-magenta);
   color: white;
-}
-
-/* ── Focus ── */
-:focus-visible {
-  outline: 2px solid var(--color-electric);
-  outline-offset: 3px;
 }

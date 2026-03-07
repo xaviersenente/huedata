@@ -1,82 +1,102 @@
 ---
 // Section CTA finale
-import Button from '../ui/Button.astro';
+import Button from "../ui/Button.astro";
+import { statsSummary } from "../../data/stats";
 ---
 
-<section id="cta-section" class="py-24 md:py-40 px-6 bg-noir relative overflow-hidden">
+<section
+  id="cta-section"
+  class="relative overflow-hidden bg-noir px-6 py-24 md:py-40"
+>
   <!-- Blobs décoratifs -->
-  <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
     <div
-      class="blur-blob absolute w-[600px] h-[600px] bg-electric"
-      style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.12;"
-    ></div>
+      class="blur-blob absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-1/2 bg-electric opacity-15!"
+    >
+    </div>
     <div
-      class="blur-blob absolute w-[300px] h-[300px] bg-magenta"
-      style="top: 0; right: 10%; opacity: 0.2;"
-    ></div>
+      class="blur-blob absolute top-0 right-1/12 h-[300px] w-[300px] bg-magenta opacity-20!"
+    >
+    </div>
     <div
-      class="blur-blob absolute w-[250px] h-[250px] bg-sage"
-      style="bottom: 0; left: 10%; opacity: 0.15;"
-    ></div>
+      class="blur-blob absolute bottom-0 left-1/12 h-[250px] w-[250px] bg-sage opacity-15!"
+    >
+    </div>
   </div>
 
   <div class="relative z-10 mx-auto max-w-4xl text-center">
-
     <div id="cta-content" class="opacity-0">
-      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-8">
-        <span class="w-6 h-px bg-mustard"></span>
+      <span
+        class="mb-8 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
+      >
+        <span class="h-px w-6 bg-mustard"></span>
         Et vous ?
-        <span class="w-6 h-px bg-mustard"></span>
+        <span class="h-px w-6 bg-mustard"></span>
       </span>
 
       <h2
-        class="font-display font-bold text-creme mb-8"
-        style="font-size: clamp(3rem, 7vw, 7rem); line-height: 0.95; letter-spacing: -0.03em;"
+        class="mb-8 font-display text-[clamp(3rem,7vw,7rem)] leading-[0.95] font-bold tracking-tight text-creme"
       >
         Vos données<br />
         méritent mieux<br />
         <span class="text-gradient-magenta">qu'un tableur.</span>
       </h2>
 
-      <p class="font-body text-gray-400 text-xl mb-12 max-w-xl mx-auto leading-relaxed">
-        Décrivez-nous votre projet. On vous répond sous 48h avec une approche personnalisée.
+      <p
+        class="mx-auto mb-12 max-w-xl font-body text-xl leading-relaxed text-gray-400"
+      >
+        Décrivez-nous votre projet. On vous répond sous 48h avec une approche
+        personnalisée.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Button href="/contact" size="xl" fullWidth class="sm:w-auto hover:shadow-[0_0_60px_rgba(233,69,96,0.4)]">Démarrer un projet</Button>
-        <Button href="mailto:contact@huedata.fr" variant="outline" size="xl" arrow={false} fullWidth class="sm:w-auto">contact@huedata.fr</Button>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <Button
+          href="/contact"
+          size="xl"
+          fullWidth
+          class="hover:shadow-[0_0_60px_rgba(233,69,96,0.4)] sm:w-auto"
+          >Démarrer un projet</Button
+        >
+        <Button
+          href="mailto:contact@huedata.fr"
+          variant="outline"
+          size="xl"
+          arrow={false}
+          fullWidth
+          class="sm:w-auto">contact@huedata.fr</Button
+        >
       </div>
 
       <!-- Mini-stats rassurantes -->
       <div class="mt-16 flex flex-wrap items-center justify-center gap-8">
-        {[
-          { v: '+200', l: 'projets' },
-          { v: '15 ans', l: "d'expérience" },
-          { v: '48h', l: 'de réponse' },
-        ].map((item) => (
-          <div class="text-center">
-            <div class="font-display font-bold text-2xl text-creme">{item.v}</div>
-            <div class="font-body text-xs text-gray-500 uppercase tracking-wider mt-1">{item.l}</div>
-          </div>
-        ))}
+        {
+          statsSummary.map((item) => (
+            <div class="text-center">
+              <div class="font-display text-2xl font-bold text-creme">
+                {item.v}
+              </div>
+              <div class="mt-1 font-body text-xs tracking-wider text-gray-500 uppercase">
+                {item.l}
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
 
-  gsap.to('#cta-content', {
+  gsap.to("#cta-content", {
     opacity: 1,
     y: 0,
     duration: 1,
-    ease: 'power3.out',
+    ease: "power3.out",
     scrollTrigger: {
-      trigger: '#cta-section',
-      start: 'top 70%',
+      trigger: "#cta-section",
+      start: "top 70%",
     },
   });
 </script>

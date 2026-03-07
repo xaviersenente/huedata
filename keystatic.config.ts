@@ -2,10 +2,9 @@
 import { config, fields, collection } from "@keystatic/core";
 
 export default config({
-  storage: {
-    kind: "github",
-    repo: "xaviersenente/huedata",
-  },
+  storage: import.meta.env.DEV
+    ? { kind: "local" }
+    : { kind: "github", repo: "xaviersenente/huedata" },
   collections: {
     references: collection({
       label: "Références",
@@ -59,11 +58,26 @@ export default config({
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Titre" } }),
-        icon: fields.text({ label: "Icône" }),
+        icon: fields.select({
+          label: "Icône",
+          options: [
+            { label: "Graphique", value: "chart" },
+            { label: "Discussion", value: "chat" },
+            { label: "Cible", value: "target" },
+            { label: "Carte", value: "map" },
+          ],
+          defaultValue: "chart",
+        }),
         order: fields.integer({ label: "Ordre d'affichage" }),
-        color: fields.text({
-          label: "Couleur (hex)",
-          defaultValue: "#3A86FF",
+        color: fields.select({
+          label: "Couleur",
+          options: [
+            { label: "Bleu électrique", value: "electric" },
+            { label: "Magenta", value: "magenta" },
+            { label: "Moutarde", value: "mustard" },
+            { label: "Sauge", value: "sage" },
+          ],
+          defaultValue: "electric",
         }),
         description: fields.text({
           label: "Description courte",
@@ -73,6 +87,20 @@ export default config({
           label: "Méthodes",
           itemLabel: (props) => props.value,
         }),
+        testimonial: fields.conditional(
+          fields.checkbox({
+            label: "Ajouter un témoignage",
+            defaultValue: false,
+          }),
+          {
+            true: fields.object({
+              author: fields.text({ label: "Auteur" }),
+              role: fields.text({ label: "Rôle" }),
+              quote: fields.text({ label: "Citation", multiline: true }),
+            }),
+            false: fields.empty(),
+          },
+        ),
         content: fields.markdoc({ label: "Contenu", extension: "md" }),
       },
     }),

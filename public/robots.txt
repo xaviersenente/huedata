@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://huedata.fr/sitemap-index.xml

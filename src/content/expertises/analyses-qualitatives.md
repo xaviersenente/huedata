@@ -2,7 +2,7 @@
 title: "Analyses qualitatives"
 icon: "chat"
 order: 2
-color: "#E94560"
+color: "magenta"
 description: "Les chiffres expliquent le quoi. Les entretiens expliquent le pourquoi. On fait les deux, et c'est là que ça devient vraiment intéressant."
 methods:
   - "Entretiens semi-directifs"

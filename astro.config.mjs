@@ -7,9 +7,11 @@ import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
 import netlify from "@astrojs/netlify";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://huedata.fr",
   output: "static",
   adapter: netlify(),
 
@@ -17,5 +19,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [react(), markdoc(), keystatic()],
+  integrations: [react(), markdoc(), keystatic(), sitemap()],
 });

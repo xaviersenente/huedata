@@ -2,7 +2,7 @@
 title: "Impact économique & territorial"
 icon: "map"
 order: 4
-color: "#06D6A0"
+color: "sage"
 description: "Combien votre festival rapporte-t-il au territoire ? On le mesure, on le documente, on l'argumente. Pour vos partenaires et vos financeurs."
 methods:
   - "Calcul de retombées économiques directes et indirectes"

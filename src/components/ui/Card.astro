@@ -1,168 +1,157 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import { domainLabels, domainCardStyles } from "../../data/domains";
 
 interface Props {
-  entry: CollectionEntry<'references'>;
-  variant?: 'featured' | 'grid';
+  entry: CollectionEntry<"references">;
+  variant?: "featured" | "grid";
   headingLevel?: 2 | 3;
   class?: string;
 }
 
 const {
   entry,
-  variant = 'grid',
+  variant = "grid",
   headingLevel = 3,
-  class: className = '',
+  class: className = "",
 } = Astro.props;
 
-export const domainColors: Record<string, string> = {
-  festival: 'var(--color-magenta)',
-  salle: 'var(--color-electric)',
-  musee: 'var(--color-mustard)',
-  sport: 'var(--color-sage)',
-  collectivite: 'var(--color-electric)',
-  association: 'var(--color-sage)',
-};
-
-export const domainLabels: Record<string, string> = {
-  festival: 'Festival',
-  salle: 'Salle & SMAC',
-  musee: 'Musée & Patrimoine',
-  sport: 'Sport',
-  collectivite: 'Collectivité',
-  association: 'Association',
-};
-
 const { data } = entry;
-const color = domainColors[data.domain];
+const dc = domainCardStyles[data.domain];
 const label = domainLabels[data.domain];
-const isFeatured = variant === 'featured';
-const Heading = `h${headingLevel}` as 'h2' | 'h3';
-const cardBg = isFeatured
-  ? `color-mix(in srgb, ${color} 5%, #0d0d0d)`
-  : '#0d0d0d';
+const isFeatured = variant === "featured";
+const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
 <a
   href={`/references/${entry.slug}`}
   class:list={[
-    'ref-card group relative rounded-2xl overflow-hidden border border-transparent transition-all duration-500',
-    isFeatured
-      ? `p-8 bg-domain-${data.domain}`
-      : 'p-7 card-glass',
+    "ref-card group relative overflow-hidden rounded-2xl border border-transparent transition-all duration-500",
+    isFeatured ? `p-8 bg-domain-${data.domain}` : "card-glass p-7",
+    dc.cardColor,
+    isFeatured ? dc.cardBgFeatured : "[--card-bg:var(--color-noir)]",
     className,
   ]}
-  style={`--card-color: ${color}; --card-bg: ${cardBg};`}
   data-domain={data.domain}
 >
-  <!-- Color accent top bar -->
-  <!-- <div
-    class="absolute top-0 left-0 right-0 h-px"
-    style={`background: linear-gradient(90deg, ${color}, transparent);`}
-  ></div> -->
-
-
-
   <!-- Domain badge + year -->
-  <div class:list={['flex items-center justify-between', isFeatured ? 'mb-6' : 'mb-5']}>
-    {isFeatured ? (
-      <span
-        class={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full border domain-${data.domain}`}
-        style={`border-color: color-mix(in srgb, ${color} 25%, transparent); background: color-mix(in srgb, ${color} 8%, transparent);`}
-      >
-        <span class="w-1.5 h-1.5 rounded-full" style={`background: ${color};`}></span>
-        {label}
-      </span>
-    ) : (
-      <span
-        class="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
-        style={`background: color-mix(in srgb, ${color} 8%, transparent); color: ${color};`}
-      >
-        {label}
-      </span>
-    )}
-    <span class:list={['text-xs text-gray-400']}>{data.year}</span>
+  <div
+    class:list={[
+      "flex items-center justify-between",
+      isFeatured ? "mb-6" : "mb-5",
+    ]}
+  >
+    {
+      isFeatured ? (
+        <span
+          class={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-widest uppercase ${dc.text} ${dc.bgMuted} ${dc.borderMuted}`}
+        >
+          <span class={`h-1.5 w-1.5 rounded-full ${dc.dot}`} />
+          {label}
+        </span>
+      ) : (
+        <span
+          class={`rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase ${dc.bgMuted} ${dc.text}`}
+        >
+          {label}
+        </span>
+      )
+    }
+    <span class="text-xs text-gray-400">{data.year}</span>
   </div>
 
-  <div class="flex gap-2 items-start">
+  <div class="flex items-start gap-2">
     <!-- Title -->
     <Heading
       class:list={[
-        'font-display font-bold text-creme mb-2 transition-colors duration-300',
-        isFeatured ? 'text-2xl md:text-3xl' : 'text-xl group-hover:text-creme',
+        "mb-2 font-display font-bold text-creme transition-colors duration-300",
+        isFeatured ? "text-2xl md:text-3xl" : "text-xl group-hover:text-creme",
       ]}
     >
       {data.title}
     </Heading>
 
     <!-- "Phare" badge (grid variant only, when featured) -->
-    {!isFeatured && data.featured && (
-      
-      <div class="bg-mustard text-noir text-xs font-bold px-2.5 py-0.5 mt-0.5 rounded-full flex items-center justify-center">Phare</div>
-      
-    )}
+    {
+      !isFeatured && data.featured && (
+        <div class="mt-0.5 flex items-center justify-center rounded-full bg-mustard px-2.5 py-0.5 text-xs font-bold text-noir">
+          Phare
+        </div>
+      )
+    }
   </div>
-  
 
   <!-- Location -->
-  <p class:list={['font-body text-sm text-gray-400', isFeatured ? 'mb-6' : 'mb-5']}>
+  <p
+    class:list={[
+      "font-body text-sm text-gray-400",
+      isFeatured ? "mb-6" : "mb-5",
+    ]}
+  >
     {data.location}
   </p>
 
   <!-- Stats -->
-  {data.stats && data.stats.length > 0 && (
-    <div
-      class:list={[
-        'flex',
-        isFeatured
-          ? 'gap-4 mb-6'
-          : 'gap-5 mb-5 pt-4 border-t border-gray-800',
-      ]}
-    >
-      {data.stats.slice(0, 2).map((stat) => (
-        <div>
-          <div
-            class:list={['font-display font-bold', isFeatured ? 'text-xl' : 'text-lg']}
-            style={`color: ${color};`}
-          >
-            {stat.value}
+  {
+    data.stats && data.stats.length > 0 && (
+      <div
+        class:list={[
+          "flex",
+          isFeatured
+            ? "mb-6 gap-4"
+            : "mb-5 gap-5 border-t border-gray-800 pt-4",
+        ]}
+      >
+        {data.stats.slice(0, 2).map((stat) => (
+          <div>
+            <div
+              class:list={[
+                "font-display font-bold",
+                isFeatured ? "text-xl" : "text-lg",
+                dc.text,
+              ]}
+            >
+              {stat.value}
+            </div>
+            <div class="mt-0.5 text-xs text-gray-400">{stat.label}</div>
           </div>
-          <div class='text-xs mt-0.5 text-gray-400'>
-            {stat.label}
-          </div>
-        </div>
-      ))}
-    </div>
-  )}
+        ))}
+      </div>
+    )
+  }
 
   <!-- CTA -->
-  {isFeatured ? (
-    <div
-      class="flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3"
-      style={`color: ${color};`}
-    >
-      Voir l'étude de cas
-      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-    </div>
-  ) : (
-    <div
-      class="text-xs font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5"
-      style={`color: ${color};`}
-    >
-      Voir l'étude →
-    </div>
-  )}
+  {
+    isFeatured ? (
+      <div
+        class={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3 ${dc.text}`}
+      >
+        Voir l'étude de cas
+        <span class="transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+      </div>
+    ) : (
+      <div
+        class={`flex items-center gap-1.5 text-xs font-semibold transition-all duration-300 group-hover:gap-2.5 ${dc.text}`}
+      >
+        Voir l'étude →
+      </div>
+    )
+  }
 </a>
 
 <style is:global>
   @property --border-angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
   }
 
   @keyframes card-border-rotate {
-    to { --border-angle: 360deg; }
+    to {
+      --border-angle: 360deg;
+    }
   }
 
   /* Gradient border — always visible */
@@ -170,17 +159,19 @@ const cardBg = isFeatured
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)),
       linear-gradient(var(--card-bg), var(--card-bg)),
-      conic-gradient(from var(--border-angle), transparent 70%, var(--card-color) 82%, var(--card-color) 88%, transparent);
+      conic-gradient(
+        from var(--border-angle),
+        transparent 70%,
+        var(--card-color) 82%,
+        var(--card-color) 88%,
+        transparent
+      );
     background-origin: padding-box, padding-box, border-box;
     background-clip: padding-box, padding-box, border-box;
   }
 
   /* Animated gradient border on hover */
   .ref-card:hover {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)),
-      linear-gradient(var(--card-bg), var(--card-bg)),
-      conic-gradient(from var(--border-angle), transparent 70%, var(--card-color) 82%, var(--card-color) 88%, transparent);
     animation: card-border-rotate 3s linear infinite;
   }
 </style>

@@ -28,9 +28,9 @@ const expertises = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    icon: z.string(),
+    icon: z.enum(['chart', 'chat', 'target', 'map']),
     order: z.number(),
-    color: z.string(),
+    color: z.enum(['electric', 'magenta', 'mustard', 'sage']),
     description: z.string(),
     methods: z.array(z.string()).optional(),
   }),
