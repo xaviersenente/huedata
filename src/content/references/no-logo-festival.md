@@ -17,9 +17,11 @@ services:
   - "Étude descriptive et de satisfaction"
   - "Étude d'impact économique"
 testimonial:
-  author: "Florent Sanseigne"
-  role: "Directeur, No Logo Festival"
-  quote: "En 2022 l'analyse et la connaissance des acteurs de son événement est un moyen de réussite !"
+  discriminant: true
+  value:
+    author: "Florent Sanseigne"
+    role: "Directeur, No Logo Festival"
+    quote: "En 2022 l'analyse et la connaissance des acteurs de son événement est un moyen de réussite !"
 ---
 
 Partenariat historique engagé depuis 2015 avec l'un des festivals de musiques actuelles les plus emblématiques de Franche-Comté. Chaque année, HueData déploie un dispositif complet d'étude : analyse de la billetterie (20 000 lignes), enquête de satisfaction auprès des festivaliers (1 200 à 1 900 réponses/an) et cartographie de la provenance du public.

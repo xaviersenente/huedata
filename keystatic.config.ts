@@ -48,6 +48,20 @@ export default config({
           label: "Services réalisés",
           itemLabel: (props) => props.value,
         }),
+        testimonial: fields.conditional(
+          fields.checkbox({
+            label: "Ajouter un témoignage",
+            defaultValue: false,
+          }),
+          {
+            true: fields.object({
+              author: fields.text({ label: "Auteur" }),
+              role: fields.text({ label: "Rôle" }),
+              quote: fields.text({ label: "Citation", multiline: true }),
+            }),
+            false: fields.empty(),
+          },
+        ),
         content: fields.markdoc({ label: "Contenu", extension: "md" }),
       },
     }),

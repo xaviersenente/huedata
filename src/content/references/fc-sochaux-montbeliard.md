@@ -4,7 +4,7 @@ client: FCSM
 location: Montbéliard, Doubs
 year: '2018'
 domain: sport
-featured: true
+featured: false
 stats:
   - label: spectateurs interrogés
     value: 1 200

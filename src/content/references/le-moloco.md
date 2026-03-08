@@ -17,9 +17,11 @@ services:
   - "Analyse longitudinale de l'évolution"
   - "Recommandations stratégiques"
 testimonial:
-  author: "David Demange"
-  role: "Directeur, Le Moloco"
-  quote: "Le travail sur les datas avec Stéphane a été très important dans le regard que le Moloco porte sur sa propre activité. Cela nous permet de faire évoluer le projet artistique et d'argumenter auprès de nos partenaires."
+  discriminant: true
+  value:
+    author: "David Demange"
+    role: "Directeur, Le Moloco"
+    quote: "Le travail sur les datas avec Stéphane a été très important dans le regard que le Moloco porte sur sa propre activité. Cela nous permet de faire évoluer le projet artistique et d'argumenter auprès de nos partenaires."
 ---
 
 Salle de musiques actuelles de référence en Franche-Comté, Le Moloco a fait appel à HueData pour deux études de satisfaction distinctes (2016 et 2019), permettant de mesurer l'évolution de la perception des spectateurs et d'orienter les choix artistiques et de communication.
