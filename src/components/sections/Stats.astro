@@ -7,7 +7,8 @@ import { stats } from "../../data/stats";
   <div class="mx-auto max-w-7xl">
     <!-- Header -->
     <div
-      class="stats-header mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+      data-animate="stats-header"
+      class="mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
       <div>
         <span
@@ -34,7 +35,8 @@ import { stats } from "../../data/stats";
       {
         stats.map((stat, i) => (
           <div
-            class="stat-card flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
+            data-animate="stat"
+            class="flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
             data-value={stat.value}
             data-prefix={stat.prefix}
             data-suffix={stat.suffix}
@@ -44,7 +46,7 @@ import { stats } from "../../data/stats";
               class={`mb-4 font-display text-[clamp(2.8rem,2.08rem+2.4vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
             >
               {stat.prefix && <span class="">{stat.prefix}</span>}
-              <span class="stat-number">0</span>
+              <span data-role="number">0</span>
               {stat.suffix && (
                 <span class="text-2xl lg:text-3xl">{stat.suffix}</span>
               )}
@@ -64,7 +66,7 @@ import { stats } from "../../data/stats";
 
   // Header reveal
   gsap.fromTo(
-    ".stats-header",
+    '[data-animate="stats-header"]',
     { opacity: 0, y: 50 },
     {
       opacity: 1,
@@ -74,13 +76,14 @@ import { stats } from "../../data/stats";
       scrollTrigger: {
         trigger: "#stats-section",
         start: "top 75%",
+        once: true,
       },
     },
   );
 
   // Cards stagger
   gsap.fromTo(
-    ".stat-card",
+    '[data-animate="stat"]',
     { opacity: 0, y: 40 },
     {
       opacity: 1,
@@ -91,35 +94,38 @@ import { stats } from "../../data/stats";
       scrollTrigger: {
         trigger: "#stats-section",
         start: "top 65%",
+        once: true,
       },
     },
   );
 
   // CountUp animation
-  document.querySelectorAll<HTMLElement>(".stat-card").forEach((card) => {
-    const target = parseInt(card.dataset.value ?? "0", 10);
-    const numberEl = card.querySelector(".stat-number");
-    if (!numberEl) return;
+  document
+    .querySelectorAll<HTMLElement>('[data-animate="stat"]')
+    .forEach((card) => {
+      const target = parseInt(card.dataset.value ?? "0", 10);
+      const numberEl = card.querySelector('[data-role="number"]');
+      if (!numberEl) return;
 
-    ScrollTrigger.create({
-      trigger: card,
-      start: "top 80%",
-      once: true,
-      onEnter: () => {
-        gsap.to(
-          { val: 0 },
-          {
-            val: target,
-            duration: 2,
-            ease: "power2.out",
-            onUpdate: function () {
-              const v = Math.round(this.targets()[0].val);
-              numberEl.textContent =
-                v >= 1000 ? v.toLocaleString("fr-FR") : String(v);
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 80%",
+        once: true,
+        onEnter: () => {
+          gsap.to(
+            { val: 0 },
+            {
+              val: target,
+              duration: 2,
+              ease: "power2.out",
+              onUpdate: function () {
+                const v = Math.round(this.targets()[0].val);
+                numberEl.textContent =
+                  v >= 1000 ? v.toLocaleString("fr-FR") : String(v);
+              },
             },
-          },
-        );
-      },
+          );
+        },
+      });
     });
-  });
 </script>

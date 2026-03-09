@@ -79,7 +79,7 @@ const sectors = [
           </p>
           <!-- Nom + Organisation -->
           <div class="grid gap-4 sm:grid-cols-2">
-            <div class="form-field">
+            <div data-animate="field">
               <label
                 for="name"
                 class="mb-2 block font-display text-sm font-semibold text-creme"
@@ -97,7 +97,7 @@ const sectors = [
                 class="w-full rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-creme placeholder-gray-600 transition-colors duration-200 outline-none focus:border-magenta"
               />
             </div>
-            <div class="form-field">
+            <div data-animate="field">
               <label
                 for="organization"
                 class="mb-2 block font-display text-sm font-semibold text-creme"
@@ -117,7 +117,7 @@ const sectors = [
           </div>
 
           <!-- Email -->
-          <div class="form-field">
+          <div data-animate="field">
             <label
               for="email"
               class="mb-2 block font-display text-sm font-semibold text-creme"
@@ -136,7 +136,7 @@ const sectors = [
           </div>
 
           <!-- Type de projet -->
-          <div class="form-field">
+          <div data-animate="field">
             <label
               class="mb-3 block font-display text-sm font-semibold text-creme"
             >
@@ -162,7 +162,7 @@ const sectors = [
           </div>
 
           <!-- Secteur -->
-          <div class="form-field">
+          <div data-animate="field">
             <label
               for="sector"
               class="mb-2 block font-display text-sm font-semibold text-creme"
@@ -180,7 +180,7 @@ const sectors = [
           </div>
 
           <!-- Message -->
-          <div class="form-field">
+          <div data-animate="field">
             <label
               for="message"
               class="mb-2 block font-display text-sm font-semibold text-creme"
@@ -345,7 +345,7 @@ const sectors = [
 
   // Animate form fields on load
   gsap.fromTo(
-    ".form-field",
+    '[data-animate="field"]',
     { opacity: 0, y: 20 },
     {
       opacity: 1,

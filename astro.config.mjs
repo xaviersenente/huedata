@@ -13,7 +13,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://huedata.fr",
   output: "static",
-  //adapter: netlify(),
+  adapter: netlify(),
 
   vite: {
     plugins: [tailwindcss()],

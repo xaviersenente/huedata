@@ -91,22 +91,28 @@ const domains = Object.keys(domainLabels);
 <script>
   import gsap from "gsap";
 
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const filterBtns = document.querySelectorAll<HTMLElement>(".filter-btn");
   const cards = document.querySelectorAll<HTMLElement>(".ref-card");
 
   // Init animation
-  gsap.fromTo(
-    cards,
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.06,
-      ease: "power3.out",
-      delay: 0.2,
-    },
-  );
+  if (reduced) {
+    gsap.set(cards, { opacity: 1, y: 0 });
+  } else {
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        ease: "power3.out",
+        delay: 0.2,
+      },
+    );
+  }
 
   const INACTIVE = ["text-gray-400", "border-gray-700"];
   const ALL_ACTIVE = ["bg-creme", "text-noir", "border-creme"];
@@ -133,7 +139,10 @@ const domains = Object.keys(domainLabels);
         const domain = card.dataset.domain ?? "";
         const visible = filter === "all" || domain === filter;
 
-        if (visible) {
+        if (reduced) {
+          card.style.display = visible ? "block" : "none";
+          card.style.opacity = visible ? "1" : "0";
+        } else if (visible) {
           card.style.display = "block";
           gsap.to(card, {
             opacity: 1,

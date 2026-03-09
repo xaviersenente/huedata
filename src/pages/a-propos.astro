@@ -166,8 +166,9 @@ const timeline = [
         {
           facettes.map((f) => (
             <div
+              data-animate="facette"
               class:list={[
-                "facette-card group card-glass relative overflow-hidden rounded-2xl border border-gray-800 p-10 transition-all duration-500",
+                "group card-glass relative overflow-hidden rounded-2xl border border-gray-800 p-10 transition-all duration-500",
                 f.accentClass,
               ]}
             >
@@ -221,7 +222,8 @@ const timeline = [
           {
             timeline.map((item, i) => (
               <div
-                class={`timeline-item flex gap-8 md:gap-0 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center`}
+                data-animate="timeline"
+                class={`flex gap-8 md:gap-0 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center`}
               >
                 <div
                   class={`flex-1 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-16 md:pl-0`}
@@ -260,30 +262,46 @@ const timeline = [
 <script>
   import { gsap, ScrollTrigger } from "../lib/gsap";
 
-  gsap.fromTo(
-    ".facette-card",
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.12,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".facette-card", start: "top 80%" },
-    },
-  );
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  gsap.utils.toArray<HTMLElement>(".timeline-item").forEach((el, i) => {
+  if (reduced) {
+    gsap.set('[data-animate="facette"], [data-animate="timeline"]', {
+      opacity: 1,
+      x: 0,
+      y: 0,
+    });
+  } else {
     gsap.fromTo(
-      el,
-      { opacity: 0, x: i % 2 === 0 ? -40 : 40 },
+      '[data-animate="facette"]',
+      { opacity: 0, y: 40 },
       {
         opacity: 1,
-        x: 0,
+        y: 0,
         duration: 0.7,
+        stagger: 0.12,
         ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 80%" },
+        scrollTrigger: {
+          trigger: '[data-animate="facette"]',
+          start: "top 80%",
+          once: true,
+        },
       },
     );
-  });
+
+    gsap.utils
+      .toArray<HTMLElement>('[data-animate="timeline"]')
+      .forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, x: i % 2 === 0 ? -40 : 40 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 80%", once: true },
+          },
+        );
+      });
+  }
 </script>

@@ -17,7 +17,7 @@ const accentBg   = ['bg-magenta',   'bg-electric',   'bg-sage',   'bg-mustard'];
   <div class="mx-auto max-w-7xl">
 
     <!-- Header -->
-    <div class="testim-header mb-16">
+    <div data-animate="testim-header" class="mb-16">
       <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
         <span class="w-6 h-px bg-magenta"></span>
         Ils en parlent mieux que nous
@@ -127,18 +127,18 @@ const accentBg   = ['bg-magenta',   'bg-electric',   'bg-sage',   'bg-mustard'];
 <script>
   import { gsap, ScrollTrigger } from '../../lib/gsap';
 
-  gsap.fromTo('.testim-header',
+  gsap.fromTo('[data-animate="testim-header"]',
     { opacity: 0, y: 40 },
     {
       opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: '#testimonials-section', start: 'top 75%' },
+      scrollTrigger: { trigger: '#testimonials-section', start: 'top 75%', once: true },
     }
   );
   gsap.fromTo('#testim-track',
     { opacity: 0, y: 30 },
     {
       opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.15,
-      scrollTrigger: { trigger: '#testimonials-section', start: 'top 70%' },
+      scrollTrigger: { trigger: '#testimonials-section', start: 'top 70%', once: true },
     }
   );
 

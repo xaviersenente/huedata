@@ -11,7 +11,8 @@ const featured = allRefs.filter((r) => r.data.featured).slice(0, 4);
   <div class="mx-auto max-w-7xl">
     <!-- Header -->
     <div
-      class="refs-header mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+      data-animate="refs-header"
+      class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
       <div>
         <span
@@ -50,28 +51,42 @@ const featured = allRefs.filter((r) => r.data.featured).slice(0, 4);
 <script>
   import { gsap, ScrollTrigger } from "../../lib/gsap";
 
-  gsap.fromTo(
-    ".refs-header",
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: { trigger: "#references-section", start: "top 75%" },
-    },
-  );
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  gsap.fromTo(
-    ".ref-card",
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: { trigger: "#references-section", start: "top 65%" },
-    },
-  );
+  if (reduced) {
+    gsap.set('[data-animate="refs-header"], .ref-card', { opacity: 1, y: 0 });
+  } else {
+    gsap.fromTo(
+      '[data-animate="refs-header"]',
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#references-section",
+          start: "top 75%",
+          once: true,
+        },
+      },
+    );
+
+    gsap.fromTo(
+      ".ref-card",
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#references-section",
+          start: "top 65%",
+          once: true,
+        },
+      },
+    );
+  }
 </script>

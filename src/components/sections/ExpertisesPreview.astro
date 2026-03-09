@@ -52,7 +52,7 @@ const cardColors: Record<string, { text: string; textMuted: string; bgMuted: str
   <div class="mx-auto max-w-7xl">
 
     <!-- Header -->
-    <div class="expertises-header mb-16 max-w-2xl">
+    <div data-animate="expertises-header" class="mb-16 max-w-2xl">
       <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
         <span class="w-6 h-px bg-electric"></span>
         Ce qu'on fait
@@ -74,7 +74,8 @@ const cardColors: Record<string, { text: string; textMuted: string; bgMuted: str
         return (
         <a
           href={`/expertises#${exp.slug}`}
-          class="expertise-card group relative card-glass rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-500 hover:border-opacity-40"
+          data-animate="card"
+          class="group relative card-glass rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-500 hover:border-opacity-40"
         >
           <!-- Glow on hover -->
           <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl ${c.glow}`}></div>
@@ -118,26 +119,32 @@ const cardColors: Record<string, { text: string; textMuted: string; bgMuted: str
 <script>
   import { gsap, ScrollTrigger } from '../../lib/gsap';
 
-  gsap.fromTo('.expertises-header',
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#expertises-section', start: 'top 75%' },
-    }
-  );
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.fromTo('.expertise-card',
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.12,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#expertises-section', start: 'top 65%' },
-    }
-  );
+  if (reduced) {
+    gsap.set('[data-animate="expertises-header"], [data-animate="card"]', { opacity: 1, y: 0 });
+  } else {
+    gsap.fromTo('[data-animate="expertises-header"]',
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#expertises-section', start: 'top 75%', once: true },
+      }
+    );
+
+    gsap.fromTo('[data-animate="card"]',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#expertises-section', start: 'top 65%', once: true },
+      }
+    );
+  }
 </script>
