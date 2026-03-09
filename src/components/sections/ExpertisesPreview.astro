@@ -1,51 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Button from '../ui/Button.astro';
-import IconChart from '../../assets/icons/IconChart.svg';
-import IconChat from '../../assets/icons/IconChat.svg';
-import IconTarget from '../../assets/icons/IconTarget.svg';
-import IconMap from '../../assets/icons/IconMap.svg';
-
-const iconMap: Record<string, typeof IconChart> = {
-  chart: IconChart,
-  chat: IconChat,
-  target: IconTarget,
-  map: IconMap,
-};
+import { iconMap } from '../../data/icons';
+import { expertisePreviewStyles } from '../../data/domains';
 
 const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
 
-const cardColors: Record<string, { text: string; textMuted: string; bgMuted: string; glow: string; hoverText: string }> = {
-  electric: {
-    text: 'text-electric',
-    textMuted: 'text-electric/15',
-    bgMuted: 'bg-electric/15',
-    glow: 'bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-electric)_8%,transparent),transparent_60%)]',
-    hoverText: 'group-hover:text-electric',
-  },
-  magenta: {
-    text: 'text-magenta',
-    textMuted: 'text-magenta/15',
-    bgMuted: 'bg-magenta/15',
-    glow: 'bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-magenta)_8%,transparent),transparent_60%)]',
-    hoverText: 'group-hover:text-magenta',
-  },
-  mustard: {
-    text: 'text-mustard',
-    textMuted: 'text-mustard/15',
-    bgMuted: 'bg-mustard/15',
-    glow: 'bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-mustard)_8%,transparent),transparent_60%)]',
-    hoverText: 'group-hover:text-mustard',
-  },
-  sage: {
-    text: 'text-sage',
-    textMuted: 'text-sage/15',
-    bgMuted: 'bg-sage/15',
-    glow: 'bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-sage)_8%,transparent),transparent_60%)]',
-    hoverText: 'group-hover:text-sage',
-  },
-};
-
+const cardColors = expertisePreviewStyles;
 ---
 
 <section id="expertises-section" class="py-24 md:py-32 px-6 bg-noir-soft">

@@ -185,7 +185,7 @@ export const colorTextClass: Record<string, string> = {
   sage: "text-sage",
 };
 
-// --- Styles expertises cards ---
+// --- Styles expertises cards (page détail) ---
 export interface ExpertiseCardStyle {
   text: string;
   bgPanel: string;
@@ -237,5 +237,53 @@ export const expertiseCardStyles: Record<string, ExpertiseCardStyle> = {
     topGradient: "bg-linear-to-r from-sage to-transparent",
     dot: "bg-sage",
     numberText: "text-sage/15",
+  },
+};
+
+// --- Styles expertises preview (accueil) ---
+export interface ExpertisePreviewStyle {
+  text: string;
+  textMuted: string;
+  bgMuted: string;
+  glow: string;
+  hoverText: string;
+}
+
+/**
+ * Expertise preview styles — explicit for Tailwind scanning.
+ *
+ * text-magenta text-electric text-mustard text-sage
+ * text-magenta/15 text-electric/15 text-mustard/15 text-sage/15
+ * bg-magenta/15 bg-electric/15 bg-mustard/15 bg-sage/15
+ * group-hover:text-magenta group-hover:text-electric group-hover:text-mustard group-hover:text-sage
+ */
+export const expertisePreviewStyles: Record<string, ExpertisePreviewStyle> = {
+  electric: {
+    text: "text-electric",
+    textMuted: "text-electric/15",
+    bgMuted: "bg-electric/15",
+    glow: "bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-electric)_8%,transparent),transparent_60%)]",
+    hoverText: "group-hover:text-electric",
+  },
+  magenta: {
+    text: "text-magenta",
+    textMuted: "text-magenta/15",
+    bgMuted: "bg-magenta/15",
+    glow: "bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-magenta)_8%,transparent),transparent_60%)]",
+    hoverText: "group-hover:text-magenta",
+  },
+  mustard: {
+    text: "text-mustard",
+    textMuted: "text-mustard/15",
+    bgMuted: "bg-mustard/15",
+    glow: "bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-mustard)_8%,transparent),transparent_60%)]",
+    hoverText: "group-hover:text-mustard",
+  },
+  sage: {
+    text: "text-sage",
+    textMuted: "text-sage/15",
+    bgMuted: "bg-sage/15",
+    glow: "bg-[radial-gradient(ellipse_at_top_left,color-mix(in_srgb,var(--color-sage)_8%,transparent),transparent_60%)]",
+    hoverText: "group-hover:text-sage",
   },
 };

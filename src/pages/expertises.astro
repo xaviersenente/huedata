@@ -4,21 +4,11 @@ import Layout from '../layouts/Layout.astro';
 import CTA from '../components/sections/CTA.astro';
 import Button from '../components/ui/Button.astro';
 import { colorTextClass, expertiseCardStyles } from '../data/domains';
-import IconChart from '../assets/icons/IconChart.svg';
-import IconChat from '../assets/icons/IconChat.svg';
-import IconTarget from '../assets/icons/IconTarget.svg';
-import IconMap from '../assets/icons/IconMap.svg';
+import { iconMap } from '../data/icons';
 
 const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
 
 const rendered = await Promise.all(expertises.map((exp) => render(exp)));
-
-const iconMap: Record<string, typeof IconChart> = {
-  chart: IconChart,
-  chat: IconChat,
-  target: IconTarget,
-  map: IconMap,
-};
 
 const cardColors = expertiseCardStyles;
 ---

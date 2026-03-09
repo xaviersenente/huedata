@@ -88,8 +88,21 @@ const domains = Object.keys(domainLabels);
   <CTA />
 </Layout>
 
+<style is:global>
+  #refs-grid .ref-card {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #refs-grid .ref-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
 <script>
-  import gsap from "gsap";
+  import { gsap } from "../../lib/gsap";
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -100,18 +113,13 @@ const domains = Object.keys(domainLabels);
   if (reduced) {
     gsap.set(cards, { opacity: 1, y: 0 });
   } else {
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: "power3.out",
-        delay: 0.2,
-      },
-    );
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.45,
+      stagger: 0.06,
+      ease: "power3.out",
+    });
   }
 
   const INACTIVE = ["text-gray-400", "border-gray-700"];
@@ -122,45 +130,20 @@ const domains = Object.keys(domainLabels);
     btn.addEventListener("click", () => {
       const filter = btn.dataset.filter ?? "all";
 
-      // Reset all to inactive
       filterBtns.forEach((b) => {
         const active = b.dataset.activeClass?.split(" ") ?? ALL_ACTIVE;
         b.classList.remove("active", ...active);
         b.classList.add(...INACTIVE);
       });
 
-      // Activate clicked button
       const active = btn.dataset.activeClass?.split(" ") ?? ALL_ACTIVE;
       btn.classList.remove(...INACTIVE);
       btn.classList.add("active", ...active);
 
-      // Filter cards
       cards.forEach((card) => {
         const domain = card.dataset.domain ?? "";
         const visible = filter === "all" || domain === filter;
-
-        if (reduced) {
-          card.style.display = visible ? "block" : "none";
-          card.style.opacity = visible ? "1" : "0";
-        } else if (visible) {
-          card.style.display = "block";
-          gsap.to(card, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        } else {
-          gsap.to(card, {
-            opacity: 0,
-            scale: 0.96,
-            duration: 0.2,
-            ease: "power2.in",
-            onComplete: () => {
-              card.style.display = "none";
-            },
-          });
-        }
+        card.style.display = visible ? "" : "none";
       });
     });
   });
