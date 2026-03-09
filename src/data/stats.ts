@@ -17,14 +17,14 @@ export const stats = [
     value: 44000,
     prefix: "",
     suffix: "",
-    label: "lignes de données max",
+    label: "données traitées / étude",
     color: "mustard" as const,
   },
   {
     value: 1900,
     prefix: "",
     suffix: "",
-    label: "réponses max / étude",
+    label: "réponses d'enquête / étude",
     color: "sage" as const,
   },
 ];

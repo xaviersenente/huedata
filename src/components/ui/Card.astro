@@ -41,45 +41,35 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
       isFeatured ? "mb-6" : "mb-5",
     ]}
   >
-    {
-      isFeatured ? (
-        <span
-          class={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold tracking-widest uppercase ${dc.text} ${dc.bgMuted} ${dc.borderMuted}`}
-        >
-          <span class={`h-1.5 w-1.5 rounded-full ${dc.dot}`} />
-          {label}
-        </span>
-      ) : (
-        <span
-          class={`rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase ${dc.bgMuted} ${dc.text}`}
-        >
-          {label}
-        </span>
-      )
-    }
+    <div class="flex flex-wrap items-start gap-2">
+      <span
+        class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase ${dc.text} ${dc.bgMuted}`}
+      >
+        <span class={`h-1.5 w-1.5 rounded-full ${dc.dot}`}></span>
+        {label}
+      </span>
+
+      <!-- "Phare" badge (grid variant only, when featured) -->
+      {
+        !isFeatured && data.featured && (
+          <div class="inline-flex items-center gap-1.5 rounded-full border border-gray-400 px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase opacity-30">
+            ★ Phare
+          </div>
+        )
+      }
+    </div>
     <span class="text-xs text-gray-400">{data.year}</span>
   </div>
 
-  <div class="flex items-start gap-2">
-    <!-- Title -->
-    <Heading
-      class:list={[
-        "mb-2 font-display font-bold text-creme transition-colors duration-300",
-        isFeatured ? "text-2xl md:text-3xl" : "text-xl group-hover:text-creme",
-      ]}
-    >
-      {data.title}
-    </Heading>
-
-    <!-- "Phare" badge (grid variant only, when featured) -->
-    {
-      !isFeatured && data.featured && (
-        <div class="mt-0.5 flex items-center justify-center rounded-full bg-mustard px-2.5 py-0.5 text-xs font-bold text-noir">
-          Phare
-        </div>
-      )
-    }
-  </div>
+  <!-- Title -->
+  <Heading
+    class:list={[
+      "mb-2 font-display font-bold text-creme transition-colors duration-300",
+      isFeatured ? "text-2xl md:text-3xl" : "text-2xl group-hover:text-creme",
+    ]}
+  >
+    {data.title}
+  </Heading>
 
   <!-- Location -->
   <p
@@ -161,9 +151,9 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
       linear-gradient(var(--card-bg), var(--card-bg)),
       conic-gradient(
         from var(--border-angle),
-        transparent 70%,
-        var(--card-color) 82%,
-        var(--card-color) 88%,
+        transparent 65%,
+        var(--card-color) 80%,
+        var(--card-color) 90%,
         transparent
       );
     background-origin: padding-box, padding-box, border-box;

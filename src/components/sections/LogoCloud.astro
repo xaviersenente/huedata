@@ -5,7 +5,7 @@ import { clients } from "../../data/clients";
 ---
 
 <div
-  class="relative overflow-hidden border-y border-gray-800 bg-noir-soft py-12"
+  class="relative overflow-hidden border-y border-gray-800 bg-noir-soft py-12 md:py-16"
 >
   <!-- Dégradés latéraux -->
   <div
@@ -29,7 +29,7 @@ import { clients } from "../../data/clients";
               <span
                 class={`h-2 w-2 shrink-0 rounded-full ${domainDotClass[client.domain]}`}
               />
-              <span class="cursor-default font-display text-sm font-semibold whitespace-nowrap text-gray-400 transition-colors hover:text-creme md:text-base">
+              <span class="cursor-default font-display text-sm font-semibold whitespace-nowrap text-gray-400 transition-colors hover:text-creme md:text-2xl">
                 {client.name}
               </span>
             </div>
