@@ -23,16 +23,15 @@ const isFeatured = variant === "featured";
 const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
+<article data-domain={data.domain} class={className}>
 <a
   href={`/references/${entry.slug}`}
   class:list={[
-    "ref-card group relative overflow-hidden rounded-2xl border border-transparent transition-all duration-500",
+    "ref-card group relative block overflow-hidden rounded-2xl border border-transparent transition-all duration-500",
     isFeatured ? `p-8 bg-domain-${data.domain}` : "card-glass p-7",
     dc.cardColor,
     isFeatured ? dc.cardBgFeatured : "[--card-bg:var(--color-noir)]",
-    className,
   ]}
-  data-domain={data.domain}
 >
   {/* Domain badge + year */}
   <div

@@ -16,6 +16,8 @@ const references = defineCollection({
       "association",
     ]),
     featured: z.boolean().default(false),
+    marquee: z.boolean().default(false),
+    url: z.string().url().optional(),
     logo: z.string().optional(),
     cover: z.string().optional(),
     stats: z

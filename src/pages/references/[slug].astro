@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/ui/Button.astro";
+import IconLink from "../../assets/icons/IconLink.svg";
+import IconExternalLink from "../../assets/icons/IconExternalLink.svg";
 import { domainLabels, domainSlugStyles } from "../../data/domains";
 
 export async function getStaticPaths() {
@@ -133,6 +135,35 @@ const label = domainLabels[ref.data.domain];
                 ))}
               </ul>
             </div>
+          )
+        }
+
+        {/* Lien externe */}
+        {
+          ref.data.url && (
+            <a
+              href={ref.data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`flex items-center gap-3 rounded-2xl border p-5 transition-all duration-300 hover:scale-[1.02] ${dc.borderLight} ${dc.bgSoft}`}
+            >
+              <span
+                class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${dc.bgBadge}`}
+              >
+                <IconLink class={`h-5 w-5 ${dc.text}`} />
+              </span>
+              <div>
+                <div class={`font-display text-sm font-semibold ${dc.text}`}>
+                  Visiter le site
+                </div>
+                <div class="max-w-45 truncate font-body text-xs text-gray-400">
+                  {ref.data.url.replace(/^https?:\/\//, "")}
+                </div>
+              </div>
+              <IconExternalLink
+                class={`ml-auto h-4 w-4 shrink-0 ${dc.text} opacity-50`}
+              />
+            </a>
           )
         }
 

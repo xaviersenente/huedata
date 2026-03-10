@@ -32,6 +32,14 @@ export default config({
           label: "Mise en avant",
           defaultValue: false,
         }),
+        marquee: fields.checkbox({
+          label: "Afficher dans le bandeau",
+          defaultValue: false,
+        }),
+        url: fields.url({
+          label: "Site web",
+          description: "Lien vers le site de la structure",
+        }),
         // logo: fields.text({ label: "Logo (chemin)" }),
         // cover: fields.text({ label: "Image de couverture (chemin)" }),
         stats: fields.array(
@@ -101,20 +109,6 @@ export default config({
           label: "Méthodes",
           itemLabel: (props) => props.value,
         }),
-        testimonial: fields.conditional(
-          fields.checkbox({
-            label: "Ajouter un témoignage",
-            defaultValue: false,
-          }),
-          {
-            true: fields.object({
-              author: fields.text({ label: "Auteur" }),
-              role: fields.text({ label: "Rôle" }),
-              quote: fields.text({ label: "Citation", multiline: true }),
-            }),
-            false: fields.empty(),
-          },
-        ),
         content: fields.markdoc({ label: "Contenu", extension: "md" }),
       },
     }),

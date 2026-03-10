@@ -28,14 +28,14 @@ import SectionHeader from "../ui/SectionHeader.astro";
           <div class="border-gray-800 odd:border-r max-lg:nth-[-n+2]:border-b lg:not-last:border-r">
             <div
               data-animate="stat"
-              class="flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
+              class="flex min-h-36 flex-col bg-noir p-6 lg:min-h-48 lg:p-10"
               data-value={stat.value}
               data-prefix={stat.prefix}
               data-suffix={stat.suffix}
               data-index={i}
             >
               <div
-                class={`mb-4 font-display text-[clamp(2.8rem,2.08rem+2.4vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
+                class={`mb-4 font-display text-[clamp(2.4rem,1.44rem+3.2vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
               >
                 {stat.prefix && <span class="">{stat.prefix}</span>}
                 <span data-role="number">0</span>
