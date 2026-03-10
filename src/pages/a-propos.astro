@@ -87,9 +87,9 @@ const timeline = [
       </div>
     </div>
     <div
-      class="relative z-10 mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2"
+      class="relative z-10 mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-7"
     >
-      <div>
+      <div class="col-span-4">
         <SectionHeader
           tag="Qui sommes-nous"
           tagColor="bg-sage"
@@ -108,19 +108,19 @@ const timeline = [
       </div>
 
       {/* Portrait */}
-      <div class="relative">
+      <div class="relative col-span-3">
         <div
           class="mx-auto flex aspect-square max-w-120 items-center justify-center overflow-hidden rounded-3xl bg-linear-to-br from-magenta via-electric to-mustard"
         >
           <Image src={steph} alt="Stéphane LAURENT" />
         </div>
         {/* Badges flottants */}
-        <div class="card-glass absolute -top-4 left-0 rounded-2xl px-5 py-4">
+        <div class="card-glass absolute -top-4 -left-4 rounded-2xl px-5 py-4">
           <div class="font-display text-3xl font-bold text-mustard">12</div>
           <div class="font-body text-xs text-white">colloques</div>
         </div>
         <div
-          class="card-glass absolute right-0 -bottom-4 rounded-2xl px-5 py-4"
+          class="card-glass absolute -right-4 -bottom-4 rounded-2xl px-5 py-4"
         >
           <div class="font-display text-3xl font-bold text-sage">15ans</div>
           <div class="font-body text-xs text-white">d'enseignement</div>

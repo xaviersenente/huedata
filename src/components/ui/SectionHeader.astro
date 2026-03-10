@@ -27,13 +27,14 @@ const {
 } = Astro.props;
 
 const sizeClasses: Record<string, string> = {
-  sm: "text-[clamp(2.5rem,5vw,4rem)] leading-[1.1]",
-  md: "text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1]",
-  lg: "text-[clamp(3rem,7vw,6rem)] leading-[1]",
-  xl: "text-[clamp(3rem,7vw,7rem)] leading-[0.95]",
+  sm: "text-[clamp(2.5rem,1.6rem+3vw,4rem)] leading-[1.1]",
+  md: "text-[clamp(2.5rem,1.3rem+4vw,4.5rem)] leading-[1.1]",
+  lg: "text-[clamp(3rem,1.2rem+6vw,6rem)] leading-[1]",
+  xl: "text-[clamp(3rem,0.6rem+8vw,7rem)] leading-[0.95]",
 };
 
-const tagSpacing = size === "lg" || size === "xl" || Tag === "h1" ? "mb-6" : "mb-4";
+const tagSpacing =
+  size === "lg" || size === "xl" || Tag === "h1" ? "mb-6" : "mb-4";
 ---
 
 <div class={className} {...attrs}>
@@ -43,7 +44,7 @@ const tagSpacing = size === "lg" || size === "xl" || Tag === "h1" ? "mb-6" : "mb
       tagSpacing,
     ]}
   >
-    <span class:list={["h-px w-6", tagColor]} />
+    <span class:list={["h-px w-6", tagColor]}></span>
     {tag}
     {tagCentered && <span class:list={["h-px w-6", tagColor]} />}
   </span>
