@@ -31,6 +31,7 @@ const marqueeRefs = allRefs.filter((r) => r.data.marquee);
             <a
               href={`/references/${ref.slug}`}
               class="flex items-center gap-3"
+              tabindex={copy > 0 ? -1 : undefined}
             >
               <span
                 class={`h-2 w-2 shrink-0 rounded-full ${domainDotClass[ref.data.domain]}`}
