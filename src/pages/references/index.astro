@@ -145,7 +145,8 @@ const domains = Object.keys(domainLabels);
       cards.forEach((card) => {
         const domain = card.dataset.domain ?? "";
         const visible = filter === "all" || domain === filter;
-        card.style.display = visible ? "" : "none";
+        const article = card.closest("article");
+        if (article) article.style.display = visible ? "" : "none";
       });
     });
   });
