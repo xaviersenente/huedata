@@ -1,6 +1,7 @@
 ---
 // Section CTA finale
 import Button from "../ui/Button.astro";
+import SectionHeader from "../ui/SectionHeader.astro";
 import { statsSummary } from "../../data/stats";
 ---
 
@@ -8,7 +9,7 @@ import { statsSummary } from "../../data/stats";
   id="cta-section"
   class="relative overflow-hidden bg-noir px-6 py-24 md:py-40"
 >
-  <!-- Blobs décoratifs -->
+  {/* Blobs décoratifs */}
   <div aria-hidden="true" class="pointer-events-none absolute inset-0">
     <div
       class="blur-blob absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-1/2 bg-electric opacity-15!"
@@ -26,21 +27,17 @@ import { statsSummary } from "../../data/stats";
 
   <div class="relative z-10 mx-auto max-w-4xl text-center">
     <div id="cta-content" class="opacity-0">
-      <span
-        class="mb-8 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-      >
-        <span class="h-px w-6 bg-mustard"></span>
-        Et vous ?
-        <span class="h-px w-6 bg-mustard"></span>
-      </span>
-
-      <h2
-        class="mb-8 font-display text-[clamp(3rem,7vw,7rem)] leading-[0.95] font-bold tracking-tight text-creme"
+      <SectionHeader
+        tag="Et vous ?"
+        tagColor="bg-mustard"
+        tagCentered
+        size="xl"
+        titleClass="mb-8 tracking-tight"
       >
         Vos données<br />
         méritent mieux<br />
         <span class="text-gradient-magenta">qu'un tableur.</span>
-      </h2>
+      </SectionHeader>
 
       <p
         class="mx-auto mb-12 max-w-xl font-body text-xl leading-relaxed text-gray-400"
@@ -67,7 +64,7 @@ import { statsSummary } from "../../data/stats";
         >
       </div>
 
-      <!-- Mini-stats rassurantes -->
+      {/* Mini-stats rassurantes */}
       <div class="mt-16 flex flex-wrap items-center justify-center gap-8">
         {
           statsSummary.map((item) => (
@@ -87,17 +84,9 @@ import { statsSummary } from "../../data/stats";
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from "../../lib/gsap";
+  import { scrollReveal } from "../../lib/animations";
 
-  gsap.to("#cta-content", {
-    opacity: 1,
-    y: 0,
+  scrollReveal("#cta-content", "#cta-section", {
     duration: 1,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "#cta-section",
-      start: "top 70%",
-      once: true,
-    },
   });
 </script>

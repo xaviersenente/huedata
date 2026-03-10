@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  htmlFor?: string;
+  required?: boolean;
+  /** Use mb-3 instead of mb-2 for label (e.g. radio groups) */
+  spacious?: boolean;
+}
+
+const { label, htmlFor, required = false, spacious = false } = Astro.props;
+const labelMargin = spacious ? "mb-3" : "mb-2";
+---
+
+<div data-animate="field">
+  <label
+    for={htmlFor}
+    class:list={[
+      "block font-display text-sm font-semibold text-creme",
+      labelMargin,
+    ]}
+  >
+    {label}{required && " *"}
+  </label>
+  <slot />
+</div>

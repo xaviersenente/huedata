@@ -1,111 +1,102 @@
 ---
-import { getCollection } from 'astro:content';
-import Button from '../ui/Button.astro';
-import { iconMap } from '../../data/icons';
-import { expertisePreviewStyles } from '../../data/domains';
+import { getCollection } from "astro:content";
+import Button from "../ui/Button.astro";
+import SectionHeader from "../ui/SectionHeader.astro";
+import { iconMap } from "../../data/icons";
+import { expertisePreviewStyles } from "../../data/domains";
 
-const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
+const expertises = (await getCollection("expertises")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 
 const cardColors = expertisePreviewStyles;
 ---
 
-<section id="expertises-section" class="py-24 md:py-32 px-6 bg-noir-soft">
+<section id="expertises-section" class="bg-noir-soft px-6 py-24 md:py-32">
   <div class="mx-auto max-w-7xl">
-
-    <!-- Header -->
-    <div data-animate="expertises-header" class="mb-16 max-w-2xl">
-      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-4">
-        <span class="w-6 h-px bg-electric"></span>
-        Ce qu'on fait
-      </span>
-      <h2 class="font-display font-bold text-creme mb-6 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1]">
+    <header data-animate="expertises-header" class="mb-16 max-w-2xl">
+      <SectionHeader tag="Ce qu'on fait" tagColor="bg-electric" titleClass="mb-6">
         Quatre pôles,<br />
         <span class="text-gradient-magenta">une obsession.</span>
-      </h2>
-      <p class="font-body text-gray-400 text-lg">
-        Des études rigoureuses, une approche terrain, des recommandations actionnables. Pour que vos données travaillent vraiment pour vous.
+      </SectionHeader>
+      <p class="font-body text-lg text-gray-400">
+        Des études rigoureuses, une approche terrain, des recommandations
+        actionnables. Pour que vos données travaillent vraiment pour vous.
       </p>
-    </div>
+    </header>
 
-    <!-- Grille expertises -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-      {expertises.map((exp, i) => {
-        const c = cardColors[exp.data.color];
-        const Icon = iconMap[exp.data.icon];
-        return (
-        <a
-          href={`/expertises#${exp.slug}`}
-          data-animate="card"
-          class="group relative card-glass rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-500 hover:border-opacity-40"
-        >
-          <!-- Glow on hover -->
-          <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl ${c.glow}`}></div>
+    {/* Grille expertises */}
+    <div class="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+      {
+        expertises.map((exp, i) => {
+          const c = cardColors[exp.data.color];
+          const Icon = iconMap[exp.data.icon];
+          return (
+            <a
+              href={`/expertises#${exp.slug}`}
+              data-animate="card"
+              class="group card-glass hover:border-opacity-40 relative overflow-hidden rounded-2xl p-8 transition-all duration-500 md:p-10"
+            >
+              {/* Glow on hover */}
+              <div
+                class={`absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${c.glow}`}
+              />
 
-          <!-- Numéro -->
-          <span class={`absolute top-8 right-8 font-display font-bold text-6xl leading-none select-none ${c.textMuted}`}>
-            0{i + 1}
-          </span>
+              {/* Numéro */}
+              <span
+                class={`absolute top-8 right-8 font-display text-6xl leading-none font-bold select-none ${c.textMuted}`}
+              >
+                0{i + 1}
+              </span>
 
-          <!-- Icon -->
-          <div class={`relative z-10 w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${c.bgMuted} ${c.text}`}>
-            <Icon />
-          </div>
+              {/* Icon */}
+              <div
+                class={`relative z-10 mb-6 flex h-14 w-14 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${c.bgMuted} ${c.text}`}
+              >
+                <Icon />
+              </div>
 
-          <!-- Content -->
-          <div class="relative z-10">
-            <h3 class={`font-display font-semibold text-creme text-xl mb-3 transition-colors duration-300 ${c.hoverText}`}>
-              {exp.data.title}
-            </h3>
-            <p class="font-body text-gray-400 text-sm leading-relaxed">
-              {exp.data.description}
-            </p>
-          </div>
+              {/* Content */}
+              <div class="relative z-10">
+                <h3
+                  class={`mb-3 font-display text-xl font-semibold text-creme transition-colors duration-300 ${c.hoverText}`}
+                >
+                  {exp.data.title}
+                </h3>
+                <p class="font-body text-sm leading-relaxed text-gray-400">
+                  {exp.data.description}
+                </p>
+              </div>
 
-          <!-- Arrow -->
-          <div class={`relative z-10 mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3 ${c.text}`}>
-            En savoir plus
-            <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </div>
-        </a>
-        );
-      })}
+              {/* Arrow */}
+              <div
+                class={`relative z-10 mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3 ${c.text}`}
+              >
+                En savoir plus
+                <span class="transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
 
     <div class="text-center">
-      <Button href="/expertises" variant="outline" size="md" arrow>Toutes nos expertises</Button>
+      <Button href="/expertises" variant="outline" size="md" arrow
+        >Toutes nos expertises</Button
+      >
     </div>
   </div>
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '../../lib/gsap';
+  import { scrollReveal } from "../../lib/animations";
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (reduced) {
-    gsap.set('[data-animate="expertises-header"], [data-animate="card"]', { opacity: 1, y: 0 });
-  } else {
-    gsap.fromTo('[data-animate="expertises-header"]',
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '#expertises-section', start: 'top 75%', once: true },
-      }
-    );
-
-    gsap.fromTo('[data-animate="card"]',
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '#expertises-section', start: 'top 65%', once: true },
-      }
-    );
-  }
+  scrollReveal('[data-animate="expertises-header"]', "#expertises-section", {
+    y: 50,
+    duration: 1,
+  });
+  scrollReveal('[data-animate="card"]', "#expertises-section");
 </script>

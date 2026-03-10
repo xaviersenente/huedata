@@ -1,6 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
+import FormField from "../components/ui/FormField.astro";
+import FormInput from "../components/ui/FormInput.astro";
+import IconMail from "../assets/icons/IconMail.svg";
+import IconLinkedin from "../assets/icons/IconLinkedin.svg";
+import SectionHeader from "../components/ui/SectionHeader.astro";
 
 const projectTypes = [
   "Étude de public / satisfaction",
@@ -26,7 +31,7 @@ const sectors = [
   title="Contact — HueData"
   description="Décrivez votre projet à HueData. Réponse sous 48h pour toute demande d'étude ou de conseil en marketing culturel."
 >
-  <!-- Hero -->
+  {/* Hero */}
   <section class="relative overflow-hidden bg-noir px-6 pt-40 pb-16">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
       <div
@@ -39,19 +44,10 @@ const sectors = [
       </div>
     </div>
     <div class="relative z-10 mx-auto max-w-3xl text-center">
-      <span
-        class="mb-6 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-      >
-        <span class="h-px w-6 bg-magenta"></span>
-        Parlons data
-        <span class="h-px w-6 bg-magenta"></span>
-      </span>
-      <h1
-        class="mb-6 font-display text-[clamp(3rem,7vw,6rem)] leading-[1] font-bold tracking-tight text-creme"
-      >
+      <SectionHeader tag="Parlons data" tagCentered as="h1" size="lg" titleClass="mb-6 tracking-tight">
         Décrire<br />
         <span class="text-gradient-magenta">votre projet.</span>
-      </h1>
+      </SectionHeader>
       <p class="font-body text-xl leading-relaxed text-gray-400">
         On répond sous 48h. Pas de devis automatisé, pas de template. Une vraie
         conversation.
@@ -59,10 +55,10 @@ const sectors = [
     </div>
   </section>
 
-  <!-- Formulaire + infos -->
+  {/* Formulaire + infos */}
   <section class="bg-noir px-6 py-12 pb-32">
     <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-3">
-      <!-- Formulaire -->
+      {/* Formulaire */}
       <div class="md:col-span-2">
         <form
           id="contact-form"
@@ -77,71 +73,43 @@ const sectors = [
           <p class="hidden">
             <label>Ne pas remplir : <input name="bot-field" /></label>
           </p>
-          <!-- Nom + Organisation -->
+          {/* Nom + Organisation */}
           <div class="grid gap-4 sm:grid-cols-2">
-            <div data-animate="field">
-              <label
-                for="name"
-                class="mb-2 block font-display text-sm font-semibold text-creme"
-              >
-                Votre nom *
-              </label>
-              <input
-                type="text"
+            <FormField label="Votre nom" htmlFor="name" required>
+              <FormInput
                 id="name"
                 name="name"
                 required
                 autocomplete="name"
-                minlength="2"
+                minlength={2}
                 placeholder="Florent Sanseigne"
-                class="w-full rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-creme placeholder-gray-600 transition-colors duration-200 outline-none focus:border-magenta"
               />
-            </div>
-            <div data-animate="field">
-              <label
-                for="organization"
-                class="mb-2 block font-display text-sm font-semibold text-creme"
-              >
-                Organisation *
-              </label>
-              <input
-                type="text"
+            </FormField>
+            <FormField label="Organisation" htmlFor="organization" required>
+              <FormInput
                 id="organization"
                 name="organization"
                 required
                 autocomplete="organization"
                 placeholder="No Logo Festival"
-                class="w-full rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-creme placeholder-gray-600 transition-colors duration-200 outline-none focus:border-magenta"
               />
-            </div>
+            </FormField>
           </div>
 
-          <!-- Email -->
-          <div data-animate="field">
-            <label
-              for="email"
-              class="mb-2 block font-display text-sm font-semibold text-creme"
-            >
-              Email *
-            </label>
-            <input
+          {/* Email */}
+          <FormField label="Email" htmlFor="email" required>
+            <FormInput
               type="email"
               id="email"
               name="email"
               required
               autocomplete="email"
               placeholder="florent@no-logo.fr"
-              class="w-full rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-creme placeholder-gray-600 transition-colors duration-200 outline-none focus:border-magenta"
             />
-          </div>
+          </FormField>
 
-          <!-- Type de projet -->
-          <div data-animate="field">
-            <label
-              class="mb-3 block font-display text-sm font-semibold text-creme"
-            >
-              Type de projet
-            </label>
+          {/* Type de projet */}
+          <FormField label="Type de projet" spacious>
             <div class="flex flex-wrap gap-2">
               {
                 projectTypes.map((type) => (
@@ -159,46 +127,30 @@ const sectors = [
                 ))
               }
             </div>
-          </div>
+          </FormField>
 
-          <!-- Secteur -->
-          <div data-animate="field">
-            <label
-              for="sector"
-              class="mb-2 block font-display text-sm font-semibold text-creme"
-            >
-              Secteur d'activité
-            </label>
-            <select
-              id="sector"
-              name="sector"
-              class="w-full cursor-pointer rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-gray-400 transition-colors duration-200 outline-none focus:border-magenta"
-            >
+          {/* Secteur */}
+          <FormField label="Secteur d'activité" htmlFor="sector">
+            <FormInput as="select" id="sector" name="sector">
               <option value="">Choisissez votre secteur</option>
               {sectors.map((s) => <option value={s}>{s}</option>)}
-            </select>
-          </div>
+            </FormInput>
+          </FormField>
 
-          <!-- Message -->
-          <div data-animate="field">
-            <label
-              for="message"
-              class="mb-2 block font-display text-sm font-semibold text-creme"
-            >
-              Décrivez votre projet *
-            </label>
-            <textarea
+          {/* Message */}
+          <FormField label="Décrivez votre projet" htmlFor="message" required>
+            <FormInput
+              as="textarea"
               id="message"
               name="message"
               required
-              minlength="20"
+              minlength={20}
               rows={6}
               placeholder="Contexte, objectifs, échéance, budget indicatif..."
-              class="w-full resize-none rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base text-creme placeholder-gray-600 transition-colors duration-200 outline-none focus:border-magenta"
-            ></textarea>
-          </div>
+            />
+          </FormField>
 
-          <!-- Submit -->
+          {/* Submit */}
           <Button type="submit" size="xl" fullWidth>
             <span id="submit-text">Envoyer le projet</span>
             <span id="submit-loading" class="hidden items-center gap-2">
@@ -219,7 +171,7 @@ const sectors = [
             </span>
           </Button>
 
-          <!-- Message succès -->
+          {/* Message succès */}
           <div id="form-success" class="hidden py-6 text-center">
             <div class="mb-2 font-display text-2xl font-bold text-sage">
               Message envoyé !
@@ -229,7 +181,7 @@ const sectors = [
             </p>
           </div>
 
-          <!-- Message erreur -->
+          {/* Message erreur */}
           <div
             id="form-error"
             class="hidden rounded-xl border border-magenta/30 bg-magenta/10 px-5 py-4 text-center"
@@ -245,9 +197,9 @@ const sectors = [
         </form>
       </div>
 
-      <!-- Infos contact -->
+      {/* Infos contact */}
       <aside class="space-y-6">
-        <!-- Contact direct -->
+        {/* Contact direct */}
         <div class="card-glass rounded-2xl p-8">
           <h3
             class="mb-6 font-display text-sm font-semibold tracking-widest text-creme uppercase"
@@ -262,21 +214,7 @@ const sectors = [
               <div
                 class="flex h-10 w-10 items-center justify-center rounded-xl bg-magenta/10 text-magenta transition-colors group-hover:bg-magenta/20"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                  ></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
+                <IconMail class="h-5 w-5" />
               </div>
               <span class="text-sm">contact@huedata.fr</span>
             </a>
@@ -289,23 +227,14 @@ const sectors = [
               <div
                 class="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric transition-colors group-hover:bg-electric/20"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                  ></path>
-                </svg>
+                <IconLinkedin class="h-5 w-5" />
               </div>
               <span class="text-sm">Stéphane Laurent</span>
             </a>
           </div>
         </div>
 
-        <!-- Zone géo -->
+        {/* Zone géo */}
         <div class="card-glass rounded-2xl p-8">
           <h3
             class="mb-4 font-display text-sm font-semibold tracking-widest text-creme uppercase"
@@ -326,7 +255,7 @@ const sectors = [
           </div>
         </div>
 
-        <!-- Délai -->
+        {/* Délai */}
         <div class="rounded-2xl border border-mustard/20 bg-mustard/5 p-8">
           <div class="mb-2 font-display text-4xl font-bold text-mustard">
             48h
@@ -341,21 +270,12 @@ const sectors = [
 </Layout>
 
 <script>
-  import gsap from "gsap";
+  import { fadeIn } from "../lib/animations";
 
-  // Animate form fields on load
-  gsap.fromTo(
-    '[data-animate="field"]',
-    { opacity: 0, y: 20 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.08,
-      ease: "power3.out",
-      delay: 0.3,
-    },
-  );
+  fadeIn('[data-animate="field"]', {
+    stagger: 0.15,
+    delay: 0.3,
+  });
 
   // Project type radio styling
   document
@@ -410,18 +330,10 @@ const sectors = [
       form.style.opacity = "0.5";
       form.style.pointerEvents = "none";
       success?.classList.remove("hidden");
-      gsap.fromTo(
-        success,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-      );
+      fadeIn(success, { duration: 0.5 });
     } catch {
       error?.classList.remove("hidden");
-      gsap.fromTo(
-        error,
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" },
-      );
+      fadeIn(error, { y: 10, duration: 0.4 });
     } finally {
       if (submitBtn) submitBtn.disabled = false;
       submitText?.classList.remove("hidden");

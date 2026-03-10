@@ -7,7 +7,7 @@ import Button from "../ui/Button.astro";
   id="hero"
   class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-noir px-6 pt-20"
 >
-  <!-- Blobs couleurs arrière-plan -->
+  {/* Blobs couleurs arrière-plan */}
   <div aria-hidden="true" class="pointer-events-none absolute inset-0">
     <div
       class="blur-blob absolute top-[-150px] left-[-100px] h-[500px] w-[500px] animate-[pulse-glow_6s_ease-in-out_infinite] bg-magenta"
@@ -21,16 +21,16 @@ import Button from "../ui/Button.astro";
       class="blur-blob absolute bottom-[-100px] left-[30%] h-[350px] w-[350px] animate-[pulse-glow_7s_ease-in-out_infinite_4s] bg-mustard"
     >
     </div>
-    <!-- Grid overlay -->
+    {/* Grid overlay */}
     <div
       class="absolute inset-0 [background-image:linear-gradient(rgba(248,246,242,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(248,246,242,0.5)_1px,transparent_1px)] [background-size:80px_80px] opacity-5"
     >
     </div>
   </div>
 
-  <!-- Contenu hero -->
+  {/* Contenu hero */}
   <div class="relative z-10 mx-auto w-full max-w-7xl py-24 md:py-32">
-    <!-- Tag accrocheur -->
+    {/* Tag accrocheur */}
     <div id="hero-tag" class="mb-10 flex items-center gap-3 opacity-0">
       <span class="inline-block h-px w-8 bg-magenta"></span>
       <span class="font-body text-sm tracking-widest text-gray-400 uppercase">
@@ -38,7 +38,7 @@ import Button from "../ui/Button.astro";
       </span>
     </div>
 
-    <!-- Titre principal -->
+    {/* Titre principal */}
     <h1
       class="mb-8 font-display text-[clamp(3.5rem,9vw,9rem)] leading-[0.95] font-bold text-creme"
     >
@@ -56,7 +56,7 @@ import Button from "../ui/Button.astro";
       </span>
     </h1>
 
-    <!-- Sous-titre -->
+    {/* Sous-titre */}
     <p
       id="hero-sub"
       class="mb-12 max-w-2xl font-body text-xl leading-normal text-gray-400 opacity-0 md:text-2xl"
@@ -66,7 +66,7 @@ import Button from "../ui/Button.astro";
       salles et musées.
     </p>
 
-    <!-- CTA -->
+    {/* CTA */}
     <div id="hero-ctas" class="flex flex-wrap items-center gap-4 opacity-0">
       <Button href="/contact" size="lg">Démarrer un projet</Button>
       <Button href="/references" variant="outline" size="lg" arrow={false}
@@ -74,7 +74,7 @@ import Button from "../ui/Button.astro";
       >
     </div>
 
-    <!-- Chiffre flottant décoratif -->
+    {/* Chiffre flottant décoratif */}
     <div
       id="hero-badge"
       class="absolute top-1/3 right-32 hidden -translate-y-1/2 animate-[float_8s_ease-in-out_infinite] flex-col items-center opacity-0 xl:flex"
@@ -88,7 +88,7 @@ import Button from "../ui/Button.astro";
     </div>
   </div>
 
-  <!-- Scroll indicator -->
+  {/* Scroll indicator */}
   <div
     id="hero-scroll"
     class="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 opacity-0"

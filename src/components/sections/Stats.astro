@@ -1,58 +1,51 @@
 ---
 import { colorTextClass } from "../../data/domains";
 import { stats } from "../../data/stats";
+import SectionHeader from "../ui/SectionHeader.astro";
 ---
 
 <section id="stats-section" class="bg-noir px-6 py-24 md:py-32">
   <div class="mx-auto max-w-7xl">
-    <!-- Header -->
-    <div
+    {/* Header */}
+    <header
       data-animate="stats-header"
       class="mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
-      <div>
-        <span
-          class="mb-4 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-        >
-          <span class="h-px w-6 bg-sage"></span>
-          En chiffres
-        </span>
-        <h2
-          class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] font-bold text-creme"
-        >
-          Des chiffres qui parlent.<br />
-          <span class="text-gradient-mustard">Pour vous.</span>
-        </h2>
-      </div>
+      <SectionHeader tag="En chiffres" tagColor="bg-sage">
+        Des chiffres qui parlent.<br />
+        <span class="text-gradient-mustard">Pour vous.</span>
+      </SectionHeader>
       <p class="max-w-xs font-body text-base text-gray-400">
         15 ans de recherche appliquée et de terrain dans le secteur culturel et
         événementiel.
       </p>
-    </div>
+    </header>
 
-    <!-- Grille stats -->
-    <div class="grid grid-cols-2 gap-px bg-gray-800 lg:grid-cols-4">
+    {/* Grille stats */}
+    <div class="grid grid-cols-2 lg:grid-cols-4">
       {
         stats.map((stat, i) => (
-          <div
-            data-animate="stat"
-            class="flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
-            data-value={stat.value}
-            data-prefix={stat.prefix}
-            data-suffix={stat.suffix}
-            data-index={i}
-          >
+          <div class="border-gray-800 odd:border-r max-lg:nth-[-n+2]:border-b lg:not-last:border-r">
             <div
-              class={`mb-4 font-display text-[clamp(2.8rem,2.08rem+2.4vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
+              data-animate="stat"
+              class="flex min-h-48 flex-col justify-between bg-noir p-8 lg:p-12"
+              data-value={stat.value}
+              data-prefix={stat.prefix}
+              data-suffix={stat.suffix}
+              data-index={i}
             >
-              {stat.prefix && <span class="">{stat.prefix}</span>}
-              <span data-role="number">0</span>
-              {stat.suffix && (
-                <span class="text-2xl lg:text-3xl">{stat.suffix}</span>
-              )}
-            </div>
-            <div class="font-body text-sm text-gray-400 lg:text-base">
-              {stat.label}
+              <div
+                class={`mb-4 font-display text-[clamp(2.8rem,2.08rem+2.4vw,4rem)] leading-none font-bold ${colorTextClass[stat.color]}`}
+              >
+                {stat.prefix && <span class="">{stat.prefix}</span>}
+                <span data-role="number">0</span>
+                {stat.suffix && (
+                  <span class="text-2xl lg:text-3xl">{stat.suffix}</span>
+                )}
+              </div>
+              <div class="font-body text-sm text-gray-400 lg:text-base">
+                {stat.label}
+              </div>
             </div>
           </div>
         ))
@@ -63,41 +56,15 @@ import { stats } from "../../data/stats";
 
 <script>
   import { gsap, ScrollTrigger } from "../../lib/gsap";
+  import { scrollReveal } from "../../lib/animations";
 
-  // Header reveal
-  gsap.fromTo(
-    '[data-animate="stats-header"]',
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: "#stats-section",
-        start: "top 75%",
-        once: true,
-      },
-    },
-  );
-
-  // Cards stagger
-  gsap.fromTo(
-    '[data-animate="stat"]',
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: "#stats-section",
-        start: "top 65%",
-        once: true,
-      },
-    },
-  );
+  scrollReveal('[data-animate="stats-header"]', "#stats-section", {
+    y: 50,
+    duration: 1,
+  });
+  scrollReveal('[data-animate="stat"]', "#stats-section", {
+    start: "top 65%",
+  });
 
   // CountUp animation
   document

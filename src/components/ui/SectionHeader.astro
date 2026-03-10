@@ -1,0 +1,59 @@
+---
+interface Props {
+  /** Label text displayed above the title */
+  tag: string;
+  /** Tailwind bg-* class for the decorative line */
+  tagColor?: string;
+  /** Show decorative line on both sides of the tag */
+  tagCentered?: boolean;
+  /** Heading level */
+  as?: "h1" | "h2";
+  /** Title size preset */
+  size?: "sm" | "md" | "lg" | "xl";
+  /** Additional classes on the heading element */
+  titleClass?: string;
+  class?: string;
+}
+
+const {
+  tag,
+  tagColor = "bg-magenta",
+  tagCentered = false,
+  as: Tag = "h2",
+  size = "md",
+  titleClass,
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const sizeClasses: Record<string, string> = {
+  sm: "text-[clamp(2.5rem,5vw,4rem)] leading-[1.1]",
+  md: "text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1]",
+  lg: "text-[clamp(3rem,7vw,6rem)] leading-[1]",
+  xl: "text-[clamp(3rem,7vw,7rem)] leading-[0.95]",
+};
+
+const tagSpacing = size === "lg" || size === "xl" || Tag === "h1" ? "mb-6" : "mb-4";
+---
+
+<div class={className} {...attrs}>
+  <span
+    class:list={[
+      "inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase",
+      tagSpacing,
+    ]}
+  >
+    <span class:list={["h-px w-6", tagColor]} />
+    {tag}
+    {tagCentered && <span class:list={["h-px w-6", tagColor]} />}
+  </span>
+  <Tag
+    class:list={[
+      "font-display font-bold text-creme",
+      sizeClasses[size],
+      titleClass,
+    ]}
+  >
+    <slot />
+  </Tag>
+</div>

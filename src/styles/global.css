@@ -15,12 +15,10 @@
   --color-noir-soft: #141414;
   --color-noir-card: #1c1c1c;
   --color-creme: #f8f6f2;
-  /* --color-gray-900: #1a1a1a; */
-  --color-gray-800: oklch(27.4% 0.006 286.033); /* #252525 */
-  --color-gray-700: oklch(37% 0.013 285.805); /* #333333; */
+
+  --color-gray-800: oklch(27.4% 0.006 286.033);
+  --color-gray-700: oklch(37% 0.013 285.805);
   --color-gray-400: oklch(70.5% 0.015 286.067);
-  /* --color-gray-200: #e0ddd9; */
-  /* --color-gray-100: #f0ede9; */
 
   /* ── Typographie ── */
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
@@ -43,22 +41,15 @@
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    @apply box-border;
   }
 
   html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply scroll-smooth;
   }
 
   body {
-    margin: 0;
-    background-color: var(--color-noir);
-    color: var(--color-creme);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    overflow-x: hidden;
+    @apply bg-noir font-body leading-relaxed text-creme;
   }
 
   /* ── Typographie globale ── */
@@ -68,41 +59,18 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    @apply font-display leading-[1.1] tracking-tight;
   }
 }
 
 /* ── Utilitaires personnalisés ── */
 @layer utilities {
   .text-gradient-magenta {
-    background: linear-gradient(
-      135deg,
-      var(--color-magenta),
-      var(--color-electric)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    @apply bg-linear-[135deg,var(--color-magenta),var(--color-electric)] bg-clip-text text-transparent;
   }
 
   .text-gradient-mustard {
-    background: linear-gradient(
-      135deg,
-      var(--color-mustard),
-      var(--color-sage)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ── Focus visible global ── */
-  *:focus-visible {
-    outline: 2px solid var(--color-magenta);
-    outline-offset: 2px;
-    border-radius: 2px;
+    @apply bg-linear-[135deg,var(--color-mustard),var(--color-sage)] bg-clip-text text-transparent;
   }
 
   .clip-reveal {
@@ -110,102 +78,19 @@
   }
 
   .blur-blob {
-    filter: blur(80px);
-    border-radius: 50%;
-    opacity: 0.4;
+    @apply rounded-[50%] opacity-40 blur-3xl;
   }
 
   .card-glass {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
+    @apply border border-creme/7 bg-creme/3 backdrop-blur-md;
   }
 
   .marquee-track {
-    display: flex;
+    @apply flex;
   }
 
   .noise-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  .domain-festival {
-    color: var(--color-magenta);
-    border-color: var(--color-magenta);
-  }
-  .domain-salle {
-    color: var(--color-electric);
-    border-color: var(--color-electric);
-  }
-  .domain-musee {
-    color: var(--color-mustard);
-    border-color: var(--color-mustard);
-  }
-  .domain-sport {
-    color: var(--color-sage);
-    border-color: var(--color-sage);
-  }
-  .domain-collectivite {
-    color: var(--color-electric);
-    border-color: var(--color-electric);
-  }
-  .domain-association {
-    color: var(--color-sage);
-    border-color: var(--color-sage);
-  }
-
-  .bg-domain-festival {
-    background-color: color-mix(in srgb, var(--color-magenta) 15%, transparent);
-  }
-  .bg-domain-salle {
-    background-color: color-mix(
-      in srgb,
-      var(--color-electric) 15%,
-      transparent
-    );
-  }
-  .bg-domain-musee {
-    background-color: color-mix(in srgb, var(--color-mustard) 15%, transparent);
-  }
-  .bg-domain-sport {
-    background-color: color-mix(in srgb, var(--color-sage) 15%, transparent);
-  }
-  .bg-domain-collectivite {
-    background-color: color-mix(
-      in srgb,
-      var(--color-electric) 15%,
-      transparent
-    );
-  }
-  .bg-domain-association {
-    background-color: color-mix(in srgb, var(--color-sage) 15%, transparent);
-  }
-
-  /* Facette cards — accent dynamique via --card-accent */
-  .facette-glow {
-    background: radial-gradient(
-      ellipse at top left,
-      color-mix(in srgb, var(--card-accent) 7%, transparent),
-      transparent 60%
-    );
-  }
-  .facette-bar {
-    background: var(--card-accent);
-  }
-  .facette-icon-wrap {
-    background: color-mix(in srgb, var(--card-accent) 13%, transparent);
-    color: var(--card-accent);
-  }
-
-  /* Timeline dot — glow coloré via --dot-accent */
-  .timeline-dot-glow {
-    background: var(--dot-accent);
-    box-shadow: 0 0 12px color-mix(in srgb, var(--dot-accent) 40%, transparent);
+    @apply pointer-events-none fixed inset-0 z-1000 bg-[url('../assets/noise.svg')] opacity-3;
   }
 }
 
@@ -235,21 +120,19 @@
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  @apply w-1.5;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-noir);
+  @apply: bg-noir;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gray-700);
-  border-radius: 3px;
+  @apply rounded-xs bg-gray-700;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-400);
+  @apply bg-gray-400;
 }
 
 /* ── Selection ── */
 ::selection {
-  background-color: var(--color-magenta);
-  color: white;
+  @apply bg-magenta text-white;
 }

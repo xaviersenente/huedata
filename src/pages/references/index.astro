@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import CTA from "../../components/sections/CTA.astro";
 import Card from "../../components/ui/Card.astro";
 import { domainLabels, domainActiveClass } from "../../data/domains";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
 
 const allRefs = await getCollection("references");
 const domains = Object.keys(domainLabels);
@@ -13,7 +14,7 @@ const domains = Object.keys(domainLabels);
   title="Références — HueData"
   description="Découvrez les projets menés par HueData : festivals, salles de concert, musées, clubs sportifs et collectivités."
 >
-  <!-- Hero -->
+  {/* Hero */}
   <section class="relative overflow-hidden bg-noir px-6 pt-40 pb-20">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
       <div
@@ -22,18 +23,10 @@ const domains = Object.keys(domainLabels);
       </div>
     </div>
     <div class="relative z-10 mx-auto max-w-7xl">
-      <span
-        class="mb-6 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-      >
-        <span class="h-px w-6 bg-mustard"></span>
-        Nos projets
-      </span>
-      <h1
-        class="mb-6 font-display text-[clamp(3rem,7vw,6rem)] leading-[1] font-bold tracking-tight text-creme"
-      >
+      <SectionHeader tag="Nos projets" tagColor="bg-mustard" as="h1" size="lg" titleClass="mb-6 tracking-tight">
         {allRefs.length} projets,<br />
         <span class="text-gradient-mustard">autant d'histoires.</span>
-      </h1>
+      </SectionHeader>
       <p class="max-w-2xl font-body text-xl leading-relaxed text-gray-400">
         Des festivals aux musées, des clubs sportifs aux collectivités : chaque
         mission est unique, chaque donnée raconte quelque chose.
@@ -41,10 +34,10 @@ const domains = Object.keys(domainLabels);
     </div>
   </section>
 
-  <!-- Filtres + Grille -->
+  {/* Filtres + Grille */}
   <section class="bg-noir px-6 py-12">
     <div class="mx-auto max-w-7xl">
-      <!-- Filtres -->
+      {/* Filtres */}
       <div class="mb-12 flex flex-wrap gap-3" id="filters">
         <button
           class="filter-btn active rounded-full border border-creme bg-creme px-5 py-2.5 font-display text-sm font-semibold text-noir transition-all duration-300"
@@ -71,7 +64,7 @@ const domains = Object.keys(domainLabels);
         }
       </div>
 
-      <!-- Grille -->
+      {/* Grille */}
       <div
         class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
         id="refs-grid"
@@ -117,7 +110,7 @@ const domains = Object.keys(domainLabels);
       opacity: 1,
       y: 0,
       duration: 0.45,
-      stagger: 0.06,
+      stagger: 0.15,
       ease: "power3.out",
     });
   }

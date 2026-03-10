@@ -7,6 +7,7 @@ import IconTeacher from "../assets/icons/IconTeacher.svg";
 import IconSearch from "../assets/icons/IconSearch.svg";
 import IconUsers from "../assets/icons/IconUsers.svg";
 import IconChart from "../assets/icons/IconChart.svg";
+import SectionHeader from "../components/ui/SectionHeader.astro";
 
 const facettes = [
   {
@@ -77,7 +78,7 @@ const timeline = [
   title="À propos — HueData · Stéphane Laurent"
   description="HueData, c'est Stéphane Laurent : enseignant-chercheur, homme de terrain et analyste passionné des données culturelles."
 >
-  <!-- Hero -->
+  {/* Hero */}
   <section class="relative overflow-hidden bg-noir px-6 pt-40 pb-20">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
       <div
@@ -89,33 +90,31 @@ const timeline = [
       class="relative z-10 mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2"
     >
       <div>
-        <span
-          class="mb-6 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-        >
-          <span class="h-px w-6 bg-sage"></span>
-          Qui sommes-nous
-        </span>
-        <h1
-          class="mb-8 font-display text-[clamp(3rem,6vw,5.5rem)] leading-none font-bold tracking-[-0.03em] text-creme"
+        <SectionHeader
+          tag="Qui sommes-nous"
+          tagColor="bg-sage"
+          as="h1"
+          size="lg"
+          titleClass="mb-8 tracking-[-0.03em] text-[clamp(3rem,6vw,5.5rem)]"
         >
           HueData,<br />
           c'est <span class="text-gradient-magenta">Stéphane</span><br />
           Laurent.
-        </h1>
+        </SectionHeader>
         <p class="max-w-xl font-body text-xl leading-relaxed text-gray-400">
           Enseignant-chercheur, homme de terrain et analyste. 15 ans à faire
           parler les données du monde culturel et événementiel.
         </p>
       </div>
 
-      <!-- Portrait -->
+      {/* Portrait */}
       <div class="relative">
         <div
           class="mx-auto flex aspect-square max-w-120 items-center justify-center overflow-hidden rounded-3xl bg-linear-to-br from-magenta via-electric to-mustard"
         >
           <Image src={steph} alt="Stéphane LAURENT" />
         </div>
-        <!-- Badges flottants -->
+        {/* Badges flottants */}
         <div class="card-glass absolute -top-4 left-0 rounded-2xl px-5 py-4">
           <div class="font-display text-3xl font-bold text-mustard">12</div>
           <div class="font-body text-xs text-white">colloques</div>
@@ -130,7 +129,7 @@ const timeline = [
     </div>
   </section>
 
-  <!-- Manifeste -->
+  {/* Manifeste */}
   <section class="border-y border-gray-800 bg-noir-soft px-6 py-20">
     <div class="mx-auto max-w-4xl text-center">
       <p
@@ -144,23 +143,13 @@ const timeline = [
     </div>
   </section>
 
-  <!-- 4 Facettes -->
+  {/* 4 Facettes */}
   <section class="bg-noir px-6 py-24">
     <div class="mx-auto max-w-7xl">
-      <div class="mb-16">
-        <span
-          class="mb-4 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-        >
-          <span class="h-px w-6 bg-electric"></span>
-          Portrait
-        </span>
-        <h2
-          class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] font-bold text-creme"
-        >
-          Quatre rôles,<br />
-          <span class="text-gradient-magenta">une passion.</span>
-        </h2>
-      </div>
+      <SectionHeader tag="Portrait" tagColor="bg-electric" class="mb-16">
+        Quatre rôles,<br />
+        <span class="text-gradient-magenta">une passion.</span>
+      </SectionHeader>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         {
@@ -172,11 +161,11 @@ const timeline = [
                 f.accentClass,
               ]}
             >
-              <div class="facette-glow absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div class="facette-bar absolute top-0 bottom-0 left-0 w-1 rounded-l-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div class="absolute inset-0 rounded-2xl bg-radial-[ellipse_at_top_left] from-(--card-accent)/7 to-transparent to-60% opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              {/* <div class="absolute top-0 bottom-0 left-0 w-1 rounded-l-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" /> */}
               <div class="relative z-10">
                 <div class="mb-6 flex items-center gap-4">
-                  <div class="facette-icon-wrap flex h-12 w-12 items-center justify-center rounded-xl">
+                  <div class="facette-icon-wrap flex h-12 w-12 items-center justify-center rounded-xl bg-(--card-accent)/13 text-(--card-accent)">
                     <f.Icon />
                   </div>
                   <h3 class="font-display text-xl font-bold text-creme">
@@ -194,23 +183,18 @@ const timeline = [
     </div>
   </section>
 
-  <!-- Timeline -->
+  {/* Timeline */}
   <section class="bg-noir-soft px-6 py-24">
     <div class="mx-auto max-w-4xl">
-      <div class="mb-16">
-        <span
-          class="mb-4 inline-flex items-center gap-2 text-sm tracking-widest text-gray-400 uppercase"
-        >
-          <span class="h-px w-6 bg-mustard"></span>
-          Parcours
-        </span>
-        <h2
-          class="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.1] font-bold text-creme"
-        >
-          D'où ça vient,<br />
-          <span class="text-gradient-mustard">où ça va.</span>
-        </h2>
-      </div>
+      <SectionHeader
+        tag="Parcours"
+        tagColor="bg-mustard"
+        size="sm"
+        class="mb-16"
+      >
+        D'où ça vient,<br />
+        <span class="text-gradient-mustard">où ça va.</span>
+      </SectionHeader>
 
       <div class="relative">
         <div
@@ -241,7 +225,7 @@ const timeline = [
                 <div class="absolute left-6 z-10 shrink-0 md:relative md:left-auto">
                   <div
                     class:list={[
-                      "timeline-dot-glow h-4 w-4 rounded-full border-2 border-noir-soft",
+                      "h-4 w-4 rounded-full border-2 border-noir-soft bg-(--dot-accent) shadow-[0_0_12px_var(--dot-accent)]",
                       item.dotClass,
                     ]}
                   />
@@ -260,48 +244,19 @@ const timeline = [
 </Layout>
 
 <script>
-  import { gsap, ScrollTrigger } from "../lib/gsap";
+  import { gsap } from "../lib/gsap";
+  import { scrollReveal } from "../lib/animations";
 
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  scrollReveal('[data-animate="facette"]', '[data-animate="facette"]');
 
-  if (reduced) {
-    gsap.set('[data-animate="facette"], [data-animate="timeline"]', {
-      opacity: 1,
-      x: 0,
-      y: 0,
-    });
-  } else {
-    gsap.fromTo(
-      '[data-animate="facette"]',
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
+  gsap.utils
+    .toArray<HTMLElement>('[data-animate="timeline"]')
+    .forEach((el, i) => {
+      scrollReveal(el, el, {
+        x: i % 2 === 0 ? -40 : 40,
         y: 0,
         duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: '[data-animate="facette"]',
-          start: "top 80%",
-          once: true,
-        },
-      },
-    );
-
-    gsap.utils
-      .toArray<HTMLElement>('[data-animate="timeline"]')
-      .forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, x: i % 2 === 0 ? -40 : 40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.7,
-            ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 80%", once: true },
-          },
-        );
+        start: "top 80%",
       });
-  }
+    });
 </script>

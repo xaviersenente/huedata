@@ -46,7 +46,7 @@ const label = domainLabels[ref.data.domain];
       ],
     })}
   />
-  <!-- Hero étude de cas -->
+  {/* Hero étude de cas */}
   <section class="relative overflow-hidden bg-noir px-6 pt-40 pb-20">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
       <div
@@ -56,7 +56,7 @@ const label = domainLabels[ref.data.domain];
     </div>
 
     <div class="relative z-10 mx-auto max-w-5xl">
-      <!-- Breadcrumb -->
+      {/* Breadcrumb */}
       <nav
         class="mb-10 flex items-center gap-2 text-sm text-gray-400"
         aria-label="Fil d'Ariane"
@@ -70,7 +70,7 @@ const label = domainLabels[ref.data.domain];
         <span class="text-gray-400">{ref.data.title}</span>
       </nav>
 
-      <!-- Badge domaine -->
+      {/* Badge domaine */}
       <div class="mb-6 flex items-center gap-3">
         <span
           class={`inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full border ${dc.bgBadge} ${dc.text} ${dc.borderLight}`}
@@ -90,7 +90,7 @@ const label = domainLabels[ref.data.domain];
         {ref.data.location} · {ref.data.client}
       </p>
 
-      <!-- Stats clés -->
+      {/* Stats clés */}
       {
         ref.data.stats && ref.data.stats.length > 0 && (
           <div class="flex flex-wrap gap-8 border-t border-gray-800 pt-8">
@@ -110,12 +110,12 @@ const label = domainLabels[ref.data.domain];
     </div>
   </section>
 
-  <!-- Contenu -->
+  {/* Contenu */}
   <section class="bg-noir px-6 py-12">
     <div class="mx-auto grid max-w-5xl gap-12 md:grid-cols-3">
-      <!-- Sidebar -->
+      {/* Sidebar */}
       <aside class="space-y-8 md:col-span-1">
-        <!-- Services -->
+        {/* Services */}
         {
           ref.data.services && ref.data.services.length > 0 && (
             <div class="card-glass rounded-2xl p-8">
@@ -136,7 +136,7 @@ const label = domainLabels[ref.data.domain];
           )
         }
 
-        <!-- Témoignage -->
+        {/* Témoignage */}
         {
           ref.data.testimonial?.discriminant && ref.data.testimonial.value && (
             <div
@@ -165,7 +165,7 @@ const label = domainLabels[ref.data.domain];
           )
         }
 
-        <!-- CTA latéral -->
+        {/* CTA latéral */}
         <a
           href="/contact"
           class={`block rounded-2xl p-8 text-center border transition-all duration-300 hover:scale-105 ${dc.bgSoft} ${dc.borderLight}`}
@@ -179,14 +179,14 @@ const label = domainLabels[ref.data.domain];
         </a>
       </aside>
 
-      <!-- Contenu principal -->
+      {/* Contenu principal */}
       <article class="prose-case md:col-span-2">
         <Content />
       </article>
     </div>
   </section>
 
-  <!-- Navigation entre projets -->
+  {/* Navigation entre projets */}
   <section class="border-t border-gray-800 bg-noir-soft px-6 py-16">
     <div class="mx-auto flex max-w-5xl items-center justify-between">
       <Button href="/references" variant="link" arrow={false}
@@ -226,16 +226,8 @@ const label = domainLabels[ref.data.domain];
 </style>
 
 <script>
-  import gsap from "gsap";
+  import { fadeIn } from "../../lib/animations";
 
-  gsap.fromTo(
-    "article",
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.3 },
-  );
-  gsap.fromTo(
-    "aside",
-    { opacity: 0, x: 30 },
-    { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", delay: 0.4 },
-  );
+  fadeIn("article", { y: 30, duration: 0.8, delay: 0.3 });
+  fadeIn("aside", { y: 0, x: 30, duration: 0.8, delay: 0.4 });
 </script>

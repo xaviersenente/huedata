@@ -1,0 +1,69 @@
+---
+interface Props {
+  /** "input" | "textarea" | "select" */
+  as?: "input" | "textarea" | "select";
+  type?: string;
+  id?: string;
+  name?: string;
+  required?: boolean;
+  autocomplete?: string;
+  placeholder?: string;
+  minlength?: number;
+  rows?: number;
+  class?: string;
+}
+
+const {
+  as = "input",
+  type = "text",
+  id,
+  name,
+  required,
+  autocomplete,
+  placeholder,
+  minlength,
+  rows,
+  class: className,
+} = Astro.props;
+
+const baseClasses =
+  "w-full rounded-xl border border-gray-700 bg-noir-card px-5 py-4 font-body text-base transition-colors duration-200 outline-offset-2 outline-magenta/30 focus:border-magenta focus:outline-2";
+
+const textColor =
+  as === "select" ? "text-gray-400" : "text-creme placeholder-gray-600";
+const extraClasses =
+  as === "textarea" ? "resize-none" : as === "select" ? "cursor-pointer" : "";
+
+const classes = [baseClasses, textColor, extraClasses, className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{
+  as === "textarea" ? (
+    <textarea
+      id={id}
+      name={name}
+      required={required}
+      minlength={minlength}
+      rows={rows}
+      placeholder={placeholder}
+      class={classes}
+    />
+  ) : as === "select" ? (
+    <select id={id} name={name} class={classes}>
+      <slot />
+    </select>
+  ) : (
+    <input
+      type={type}
+      id={id}
+      name={name}
+      required={required}
+      autocomplete={autocomplete}
+      minlength={minlength}
+      placeholder={placeholder}
+      class={classes}
+    />
+  )
+}

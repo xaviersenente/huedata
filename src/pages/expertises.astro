@@ -5,6 +5,7 @@ import CTA from '../components/sections/CTA.astro';
 import Button from '../components/ui/Button.astro';
 import { colorTextClass, expertiseCardStyles } from '../data/domains';
 import { iconMap } from '../data/icons';
+import SectionHeader from '../components/ui/SectionHeader.astro';
 
 const expertises = (await getCollection('expertises')).sort((a, b) => a.data.order - b.data.order);
 
@@ -17,20 +18,16 @@ const cardColors = expertiseCardStyles;
   title="Expertises — HueData"
   description="Études quantitatives, analyses qualitatives, stratégie data-driven et impact économique pour les acteurs culturels et événementiels."
 >
-  <!-- Hero page -->
+  {/* Hero page */}
   <section class="pt-40 pb-20 px-6 bg-noir relative overflow-hidden">
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
       <div class="blur-blob absolute w-[500px] h-[500px] bg-electric opacity-20 -top-50 -right-25"></div>
     </div>
     <div class="mx-auto max-w-7xl relative z-10">
-      <span class="inline-flex items-center gap-2 text-sm text-gray-400 uppercase tracking-widest mb-6">
-        <span class="w-6 h-px bg-electric"></span>
-        Ce qu'on fait
-      </span>
-      <h1 class="font-display font-bold text-creme mb-6 text-[clamp(3rem,7vw,6rem)] leading-none tracking-[-0.03em]">
+      <SectionHeader tag="Ce qu'on fait" tagColor="bg-electric" as="h1" size="lg" titleClass="mb-6 tracking-[-0.03em]">
         Quatre pôles,<br />
         <span class="text-gradient-magenta">une obsession.</span>
-      </h1>
+      </SectionHeader>
       <p class="font-body text-gray-400 text-xl max-w-2xl leading-relaxed">
         Des études rigoureuses, une approche terrain, des recommandations actionnables.
         Pour que vos données travaillent vraiment pour vous.
@@ -38,7 +35,7 @@ const cardColors = expertiseCardStyles;
     </div>
   </section>
 
-  <!-- Expertises détaillées -->
+  {/* Expertises détaillées */}
   <section class="py-16 px-6 bg-noir">
     <div class="mx-auto max-w-7xl space-y-6">
       {expertises.map((exp, i) => {
@@ -51,11 +48,11 @@ const cardColors = expertiseCardStyles;
             data-animate="expertise"
             class="group relative rounded-2xl overflow-hidden card-glass border border-gray-800 hover:border-opacity-60 transition-all duration-500 scroll-mt-25"
           >
-            <!-- Top accent -->
+            {/* Top accent */}
             <div class={`absolute top-0 left-0 right-0 h-0.5 ${c.topGradient}`}></div>
 
             <div class="grid md:grid-cols-2 gap-0">
-              <!-- Left: title + icon -->
+              {/* Left: title + icon */}
               <div class={`p-10 md:p-14 flex flex-col justify-between border-b md:border-b-0 md:border-r border-gray-800 ${c.bgPanel}`}>
                 <div>
                   <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-8 ${c.bgIcon} ${c.text}`}>
@@ -71,7 +68,7 @@ const cardColors = expertiseCardStyles;
                 </div>
               </div>
 
-              <!-- Right: content + methods -->
+              {/* Right: content + methods */}
               <div class="p-10 md:p-14">
                 <div class="prose-custom mb-8">
                   <Content />
@@ -112,18 +109,10 @@ const cardColors = expertiseCardStyles;
 </style>
 
 <script>
-  import { gsap, ScrollTrigger } from '../lib/gsap';
+  import { gsap } from '../lib/gsap';
+  import { scrollReveal } from '../lib/animations';
 
   gsap.utils.toArray<HTMLElement>('[data-animate="expertise"]').forEach((el) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 75%', once: true },
-      }
-    );
+    scrollReveal(el, el);
   });
 </script>

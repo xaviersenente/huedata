@@ -39,27 +39,27 @@ const navLinks = [
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO -->
+    {/* SEO */}
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Open Graph -->
+    {/* Open Graph */}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
 
-    <!-- Twitter / X -->
+    {/* Twitter / X */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
 
-    <!-- Favicon -->
+    {/* Favicon */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- Schema.org -->
+    {/* Schema.org */}
     <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
@@ -102,7 +102,7 @@ const navLinks = [
   </head>
 
   <body>
-    <!-- Skip to content -->
+    {/* Skip to content */}
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-magenta focus:px-4 focus:py-2 focus:font-display focus:text-sm focus:font-semibold focus:text-creme"
@@ -110,10 +110,10 @@ const navLinks = [
       Aller au contenu
     </a>
 
-    <!-- Grain texture overlay -->
+    {/* Grain texture overlay */}
     <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- Navigation -->
+    {/* Navigation */}
     <header
       id="site-nav"
       class="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
@@ -121,21 +121,21 @@ const navLinks = [
       <nav
         class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8"
       >
-        <!-- Logo -->
+        {/* Logo */}
         <a
           href="/"
           class="group flex items-center gap-2"
           aria-label="HueData – Accueil"
         >
           <Logo class="w-28" />
-          <!-- <span
+          {/* <span
             class="font-display text-2xl font-bold tracking-tight text-creme"
           >
             Hue<span class="text-magenta">Data</span>
-          </span> -->
+          </span> */}
         </a>
 
-        <!-- Desktop nav -->
+        {/* Desktop nav */}
         <div class="hidden items-center gap-8 md:flex">
           {
             navLinks.map((link) => (
@@ -151,7 +151,7 @@ const navLinks = [
           <Button href="/contact" size="sm">Discutons</Button>
         </div>
 
-        <!-- Mobile hamburger -->
+        {/* Mobile hamburger */}
         <button
           id="menu-toggle"
           class="flex flex-col gap-1.5 p-2 md:hidden"
@@ -170,7 +170,7 @@ const navLinks = [
         </button>
       </nav>
 
-      <!-- Mobile menu -->
+      {/* Mobile menu */}
       <div
         id="mobile-menu"
         class="hidden border-t border-gray-800 bg-noir-soft px-6 py-6 md:hidden"
@@ -193,20 +193,20 @@ const navLinks = [
       </div>
     </header>
 
-    <!-- Main content -->
+    {/* Main content */}
     <main id="main">
       <slot />
     </main>
 
-    <!-- Footer -->
+    {/* Footer */}
     <footer class="border-t border-gray-800 bg-noir-soft px-6 py-16">
       <div class="mx-auto max-w-7xl">
         <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-3">
-          <!-- Brand -->
+          {/* Brand */}
           <div>
-            <!-- <a href="/" class="font-display text-3xl font-bold text-creme">
+            {/* <a href="/" class="font-display text-3xl font-bold text-creme">
               Hue<span class="text-magenta">Data</span>
-            </a> -->
+            </a> */}
             <a href="/"><Logo class="w-40" /></a>
             <p class="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
               Marketing d'études pour l'événementiel et le culturel. On
@@ -232,7 +232,7 @@ const navLinks = [
             </a>
           </div>
 
-          <!-- Navigation -->
+          {/* Navigation */}
           <div>
             <h3
               class="mb-6 font-display text-sm font-semibold tracking-widest text-creme uppercase"
@@ -255,7 +255,7 @@ const navLinks = [
             </ul>
           </div>
 
-          <!-- Contact -->
+          {/* Contact */}
           <div>
             <h3
               class="mb-6 font-display text-sm font-semibold tracking-widest text-creme uppercase"
@@ -280,7 +280,7 @@ const navLinks = [
           </div>
         </div>
 
-        <!-- Bottom bar -->
+        {/* Bottom bar */}
         <div
           class="flex flex-col items-center justify-between gap-4 border-t border-gray-800 pt-8 md:flex-row"
         >
@@ -301,7 +301,7 @@ const navLinks = [
       </div>
     </footer>
 
-    <!-- Nav scroll behavior + mobile menu -->
+    {/* Nav scroll behavior + mobile menu */}
     <script>
       const nav = document.getElementById("site-nav");
       const menuToggle = document.getElementById("menu-toggle");
