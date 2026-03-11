@@ -4,7 +4,10 @@ import { config, fields, collection } from "@keystatic/core";
 export default config({
   storage: import.meta.env.DEV
     ? { kind: "local" }
-    : { kind: "github", repo: "xaviersenente/huedata" },
+    : { kind: "cloud" },
+  cloud: {
+    project: "huedata/huedata",
+  },
   collections: {
     references: collection({
       label: "Références",
