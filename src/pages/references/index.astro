@@ -6,7 +6,9 @@ import Card from "../../components/ui/Card.astro";
 import { domainLabels, domainActiveClass } from "../../data/domains";
 import SectionHeader from "../../components/ui/SectionHeader.astro";
 
-const allRefs = await getCollection("references");
+const allRefs = (await getCollection("references")).sort(
+  (a, b) => b.data.sortYear - a.data.sortYear,
+);
 const domains = Object.keys(domainLabels);
 ---
 

@@ -3,6 +3,7 @@ title: Collectif des Acteurs de l'Évènementiel
 client: Collectif des Acteurs de l'Évènementiel
 location: Nord Franche-Comté
 year: "2020"
+sortYear: 2020
 domain: association
 featured: false
 marquee: false

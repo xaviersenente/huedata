@@ -7,6 +7,7 @@ const references = defineCollection({
     client: z.string(),
     location: z.string(),
     year: z.string(),
+    sortYear: z.number(),
     domain: z.enum([
       "festival",
       "salle",

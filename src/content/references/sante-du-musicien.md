@@ -3,6 +3,7 @@ title: La santé du Musicien
 client: Eric Dufour
 location: Franche-Comté
 year: "2017"
+sortYear: 2017
 domain: association
 featured: false
 marquee: false

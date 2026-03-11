@@ -3,6 +3,7 @@ title: Les Eurockéennes
 client: Les Eurockéennes de Belfort
 location: Belfort, Territoire de Belfort
 year: '2022'
+sortYear: 2022
 domain: festival
 featured: true
 marquee: true

@@ -3,6 +3,7 @@ title: Start'up Croc Beer
 client: Croc Beer
 location: Franche-Comté
 year: 2020 & 2021
+sortYear: 2021
 domain: association
 featured: false
 marquee: false

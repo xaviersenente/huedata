@@ -3,6 +3,7 @@ title: On Tours
 client: On Tours
 location: Dole, Jura
 year: '2020'
+sortYear: 2020
 domain: association
 featured: false
 url: https://www.ontours.fr/

@@ -3,6 +3,7 @@ title: FEMA BFC
 client: FEMA Bourgogne-Franche-Comté
 location: Bourgogne-Franche-Comté
 year: 2019 & 2022
+sortYear: 2022
 domain: collectivite
 featured: false
 marquee: true

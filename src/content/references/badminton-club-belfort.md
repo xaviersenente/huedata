@@ -3,6 +3,7 @@ title: Badminton Club Belfort
 client: Badminton Club de Belfort
 location: Belfort, Territoire de Belfort
 year: '2021'
+sortYear: 2021
 domain: sport
 featured: false
 marquee: false

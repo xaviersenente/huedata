@@ -3,6 +3,7 @@ title: La poudrière
 client: La Poudrière
 location: Belfort
 year: '2022'
+sortYear: 2022
 domain: salle
 featured: false
 marquee: true

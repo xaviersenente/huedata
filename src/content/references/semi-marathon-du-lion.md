@@ -3,6 +3,7 @@ title: Semi-marathon du Lion
 client: Semi-marathon du Lion
 location: Belfort, Territoire de Belfort
 year: '2019'
+sortYear: 2019
 domain: sport
 featured: false
 marquee: false

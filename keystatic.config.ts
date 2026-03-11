@@ -19,6 +19,10 @@ export default config({
         client: fields.text({ label: "Client" }),
         location: fields.text({ label: "Lieu" }),
         year: fields.text({ label: "Année" }),
+        sortYear: fields.integer({
+          label: "Année de tri",
+          description: "Année la plus récente du projet (utilisée pour le tri)",
+        }),
         domain: fields.select({
           label: "Domaine",
           options: [

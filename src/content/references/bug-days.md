@@ -3,6 +3,7 @@ title: Convention BUG Days
 client: BUG Days
 location: Besançon, Doubs
 year: depuis 2021
+sortYear: 2021
 domain: association
 featured: false
 marquee: false

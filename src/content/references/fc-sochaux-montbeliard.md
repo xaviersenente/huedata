@@ -3,6 +3,7 @@ title: FC Sochaux-Montbéliard
 client: FCSM
 location: Montbéliard, Doubs
 year: '2019'
+sortYear: 2019
 domain: sport
 featured: false
 marquee: true

@@ -3,6 +3,7 @@ title: Convention Necronomi'Con
 client: Necronomi'Con
 location: Belfort, Territoire de Belfort
 year: depuis 2017
+sortYear: 2017
 domain: association
 featured: false
 marquee: false

@@ -3,6 +3,7 @@ title: Le Moloco
 client: Le Moloco
 location: Audincourt, Doubs
 year: 2016 & 2019
+sortYear: 2019
 domain: salle
 featured: true
 marquee: true

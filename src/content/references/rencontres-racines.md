@@ -3,6 +3,7 @@ title: Rencontres & Racines
 client: Rencontres & Racines
 location: Audincourt, Doubs
 year: '2019'
+sortYear: 2019
 domain: festival
 featured: false
 marquee: true

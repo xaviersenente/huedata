@@ -3,6 +3,7 @@ title: Musée des Beaux-Arts
 client: Musée des Beaux-Arts de Besançon
 location: Besançon, Doubs
 year: '2021'
+sortYear: 2021
 domain: musee
 featured: true
 marquee: true

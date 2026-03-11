@@ -3,6 +3,7 @@ title: Festival No Logo
 client: No Logo
 location: Fraisans, Jura
 year: depuis 2015
+sortYear: 2015
 domain: festival
 featured: true
 marquee: true

@@ -3,6 +3,7 @@ title: Projet de recherche IVES
 client: IVES
 location: Franche-Comté
 year: "2019"
+sortYear: 2019
 domain: collectivite
 featured: false
 marquee: false
