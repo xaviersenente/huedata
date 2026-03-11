@@ -12,7 +12,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://huedata.fr",
-  output: "server",
+  output: "static",
   adapter: netlify(),
 
   vite: {

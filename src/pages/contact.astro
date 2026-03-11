@@ -1,6 +1,4 @@
 ---
-export const prerender = true;
-
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import FormField from "../components/ui/FormField.astro";
@@ -46,7 +44,13 @@ const sectors = [
       </div>
     </div>
     <div class="relative z-10 mx-auto max-w-3xl text-center">
-      <SectionHeader tag="Parlons data" tagCentered as="h1" size="lg" titleClass="mb-6 tracking-tight">
+      <SectionHeader
+        tag="Parlons data"
+        tagCentered
+        as="h1"
+        size="lg"
+        titleClass="mb-6 tracking-tight"
+      >
         Décrire<br />
         <span class="text-gradient-magenta">votre projet.</span>
       </SectionHeader>

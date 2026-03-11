@@ -1,61 +1,81 @@
 ---
-export const prerender = true;
-
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
   title="Politique de confidentialité — HueData"
   description="Politique de confidentialité et protection des données personnelles de huedata.fr"
 >
-  <section class="pt-40 pb-20 px-6 bg-noir">
+  <section class="bg-noir px-6 pt-40 pb-20">
     <div class="mx-auto max-w-3xl">
-      <h1 class="font-display font-bold text-creme text-4xl md:text-5xl mb-12">Politique de confidentialité</h1>
+      <h1 class="mb-12 font-display text-4xl font-bold text-creme md:text-5xl">
+        Politique de confidentialité
+      </h1>
 
-      <div class="space-y-10 font-body text-gray-400 leading-relaxed text-[1.0625rem]">
+      <div
+        class="space-y-10 font-body text-[1.0625rem] leading-relaxed text-gray-400"
+      >
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Responsable du traitement</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Responsable du traitement
+          </h2>
           <p>
             Stéphane Laurent — HueData<br />
             Bourgogne-Franche-Comté, France.<br />
-            Contact : <a href="/contact" class="text-magenta hover:text-magenta-dark transition-colors">formulaire de contact</a>
+            Contact : <a
+              href="/contact"
+              class="text-magenta transition-colors hover:text-magenta-dark"
+              >formulaire de contact</a
+            >
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Données collectées</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Données collectées
+          </h2>
           <p>
-            Les seules données personnelles collectées sur ce site proviennent du formulaire de contact :
-            nom, adresse e-mail, organisation (facultatif), type de projet, secteur d'activité et message.
+            Les seules données personnelles collectées sur ce site proviennent
+            du formulaire de contact : nom, adresse e-mail, organisation
+            (facultatif), type de projet, secteur d'activité et message.
           </p>
           <p class="mt-3">
-            Ces données sont collectées uniquement pour répondre à votre demande et ne sont jamais
-            transmises à des tiers à des fins commerciales.
+            Ces données sont collectées uniquement pour répondre à votre demande
+            et ne sont jamais transmises à des tiers à des fins commerciales.
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Base légale</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Base légale
+          </h2>
           <p>
-            Le traitement de vos données est fondé sur votre consentement (envoi volontaire du formulaire)
-            conformément à l'article 6.1.a du Règlement Général sur la Protection des Données (RGPD).
+            Le traitement de vos données est fondé sur votre consentement (envoi
+            volontaire du formulaire) conformément à l'article 6.1.a du
+            Règlement Général sur la Protection des Données (RGPD).
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Durée de conservation</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Durée de conservation
+          </h2>
           <p>
-            Les données issues du formulaire de contact sont conservées pour la durée nécessaire au
-            traitement de votre demande, et au maximum 3 ans à compter du dernier contact.
+            Les données issues du formulaire de contact sont conservées pour la
+            durée nécessaire au traitement de votre demande, et au maximum 3 ans
+            à compter du dernier contact.
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Vos droits</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Vos droits
+          </h2>
           <p>
-            Conformément au RGPD, vous disposez des droits suivants sur vos données personnelles :
+            Conformément au RGPD, vous disposez des droits suivants sur vos
+            données personnelles :
           </p>
-          <ul class="list-disc list-inside mt-3 space-y-1">
+          <ul class="mt-3 list-inside list-disc space-y-1">
             <li>Droit d'accès</li>
             <li>Droit de rectification</li>
             <li>Droit à l'effacement</li>
@@ -64,24 +84,33 @@ import Layout from '../layouts/Layout.astro';
             <li>Droit d'opposition</li>
           </ul>
           <p class="mt-3">
-            Pour exercer ces droits, contactez-nous via le <a href="/contact" class="text-magenta hover:text-magenta-dark transition-colors">formulaire de contact</a>.
+            Pour exercer ces droits, contactez-nous via le <a
+              href="/contact"
+              class="text-magenta transition-colors hover:text-magenta-dark"
+              >formulaire de contact</a
+            >.
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Cookies</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Cookies
+          </h2>
           <p>
-            Ce site ne dépose aucun cookie de suivi, cookie publicitaire ou traceur tiers.
-            Aucun outil d'analyse de trafic n'est utilisé. Votre navigation est entièrement privée.
+            Ce site ne dépose aucun cookie de suivi, cookie publicitaire ou
+            traceur tiers. Aucun outil d'analyse de trafic n'est utilisé. Votre
+            navigation est entièrement privée.
           </p>
         </div>
 
         <div>
-          <h2 class="font-display font-semibold text-creme text-xl mb-4">Hébergement des données</h2>
+          <h2 class="mb-4 font-display text-xl font-semibold text-creme">
+            Hébergement des données
+          </h2>
           <p>
-            Les données du formulaire de contact sont transmises via Netlify Forms et stockées sur les
-            serveurs de Netlify, Inc. (États-Unis), dans le cadre de clauses contractuelles conformes
-            au RGPD.
+            Les données du formulaire de contact sont transmises via Netlify
+            Forms et stockées sur les serveurs de Netlify, Inc. (États-Unis),
+            dans le cadre de clauses contractuelles conformes au RGPD.
           </p>
         </div>
       </div>
