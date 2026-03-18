@@ -1,7 +1,7 @@
 ---
 title: "Impact économique & territorial"
 icon: "map"
-order: 4
+order: 2
 color: "sage"
 description: "Combien votre festival rapporte-t-il au territoire ? On le mesure, on le documente, on l'argumente. Pour vos partenaires et vos financeurs."
 methods:

@@ -1,7 +1,7 @@
 ---
 title: "Stratégie data-driven"
 icon: "target"
-order: 3
+order: 4
 color: "mustard"
 description: "Transformer vos données en feuille de route. Du diagnostic à la recommandation opérationnelle, on traduit les chiffres en décisions."
 methods:
