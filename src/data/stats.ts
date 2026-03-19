@@ -14,17 +14,17 @@ export const stats = [
     color: "electric" as const,
   },
   {
-    value: 44000,
+    value: 300,
     prefix: "",
-    suffix: "",
-    label: "données traitées / étude",
+    suffix: "k",
+    label: "lignes excel analysées",
     color: "mustard" as const,
   },
   {
-    value: 1900,
+    value: 60,
     prefix: "",
-    suffix: "",
-    label: "réponses d'enquête / étude",
+    suffix: "k",
+    label: "réponses collectées",
     color: "sage" as const,
   },
 ];
