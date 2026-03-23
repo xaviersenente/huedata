@@ -5,7 +5,7 @@ location: Mulhouse, Haut-Rhin
 year: '2023'
 sortYear: 2024
 domain: salle
-featured: false
+featured: true
 marquee: true
 url: https://www.lafilature.org/
 stats:
