@@ -22,7 +22,7 @@ services:
 testimonial:
   discriminant: false
 ---
-L'un des plus grands festivals de France. En collaboration et sous direction de l'équipe du CEPEL Montpellier, HueData a accompagné les Eurockéennes dans la connaissance approfondie de leur public massif à travers une enquête de grande envergure, incluant analyse des comportements sur site et en ligne, profils socio-démographiques détaillés et cartographie de provenance nationale. L'étude a été complétée par une analyse d'impact économique du festival qui a mis en lumière près de 12 M d'€ d'injections dans le Territoire.
+L'un des plus grands festivals de France. En collaboration et sous direction de l'équipe du CEPEL Montpellier, HueData a accompagné les Eurockéennes dans la connaissance approfondie de leur public massif à travers une enquête de grande envergure en 2024. Cette dernière a inclus l'analyse des comportements sur site et en ligne, la définition de profils socio-démographiques détaillés et une cartographie de provenance nationale. L'étude a été complétée par une analyse d'impact économique du festival qui a mis en lumière près de 12 M d'€ d'injections dans le Territoire.
 
 Hue Data a aussi été sollicité depuis 2 ans pour appuyer l'équipe des Eurockéennes dans la gestion des transferts-artistes :
 
