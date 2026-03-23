@@ -5,8 +5,8 @@ location: Besançon, Doubs
 year: '2021'
 sortYear: 2021
 domain: musee
-featured: true
-marquee: true
+featured: false
+marquee: false
 url: https://www.mbaa.besancon.fr/
 stats:
   - label: lignes de billetterie analysées
