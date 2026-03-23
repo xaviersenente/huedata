@@ -3,7 +3,7 @@ title: La Filature
 client: La Filature de Mulhouse
 location: Mulhouse, Haut-Rhin
 year: '2023'
-sortYear: 202
+sortYear: 2024
 domain: salle
 featured: false
 marquee: true
