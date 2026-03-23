@@ -1,5 +1,5 @@
 ---
-title: La Filature
+title: La Filature - Scène Nationale
 client: La Filature de Mulhouse
 location: Mulhouse, Haut-Rhin
 year: '2023'
