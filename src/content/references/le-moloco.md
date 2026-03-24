@@ -1,11 +1,11 @@
 ---
-title: Le Moloco
+title: Le Moloco (SMAC)
 client: Le Moloco
 location: Audincourt, Doubs
 year: 2016 & 2019
 sortYear: 2019
 domain: salle
-featured: true
+featured: false
 marquee: true
 url: https://www.lemoloco.com/
 stats:
