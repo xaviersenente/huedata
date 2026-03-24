@@ -1,5 +1,5 @@
 ---
-title: Les Eurockéennes
+title: Festival Eurockéennes de Belfort
 client: Les Eurockéennes de Belfort
 location: Belfort, Territoire de Belfort
 year: '2024'
