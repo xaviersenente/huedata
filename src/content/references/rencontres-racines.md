@@ -10,7 +10,7 @@ marquee: true
 url: https://rencontresetracines.audincourt.fr/
 stats:
   - label: visiteurs du festival
-    value: 15 000
+    value: 35 000
   - label: questionnaires collectés
     value: '850'
   - label: retombées économiques estimées
@@ -24,4 +24,4 @@ testimonial:
 ---
 Festival des cultures du monde basé en Franche-Comté, Rencontres & Racines a sollicité HueData pour une étude tripartite : analyse de billetterie, enquête satisfaction auprès des visiteurs, et calcul de l'impact économique sur le territoire.
 
-L'estimation des retombées a conforté le dossier de demande de subventions auprès des collectivités territoriales.
+L'estimation des retombées a conforté l'intérêt de la manifestation auprès des collectivités territoriales.

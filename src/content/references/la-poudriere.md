@@ -6,7 +6,7 @@ year: '2022'
 sortYear: 2022
 domain: salle
 featured: false
-marquee: true
+marquee: false
 url: https://poudriere.com/
 stats: []
 services: []

@@ -6,7 +6,7 @@ year: 2019 & 2022
 sortYear: 2022
 domain: collectivite
 featured: false
-marquee: true
+marquee: false
 url: https://www.femabfc.org/
 stats:
   - label: structures enquêtées
