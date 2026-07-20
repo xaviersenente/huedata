@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const references = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/references" }),
   schema: z.object({
     title: z.string(),
     client: z.string(),
@@ -18,7 +19,7 @@ const references = defineCollection({
     ]),
     featured: z.boolean().default(false),
     marquee: z.boolean().default(false),
-    url: z.string().url().optional(),
+    url: z.url().optional(),
     logo: z.string().optional(),
     cover: z.string().optional(),
     stats: z
@@ -46,7 +47,7 @@ const references = defineCollection({
 });
 
 const expertises = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/expertises" }),
   schema: z.object({
     title: z.string(),
     icon: z.enum(["chart", "chat", "target", "map"]),
@@ -58,7 +59,7 @@ const expertises = defineCollection({
 });
 
 const temoignages = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/temoignages" }),
   schema: z.object({
     author: z.string(),
     role: z.string(),

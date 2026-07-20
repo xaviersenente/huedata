@@ -9,7 +9,7 @@ import { domainLabels, domainSlugStyles } from "../../data/domains";
 export async function getStaticPaths() {
   const refs = await getCollection("references");
   return refs.map((ref) => ({
-    params: { slug: ref.slug },
+    params: { slug: ref.id },
     props: { ref },
   }));
 }
